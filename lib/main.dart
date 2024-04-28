@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'screens/page_1.dart';
 import 'screens/page_2.dart';
 import 'screens/page_3.dart';
-import 'screens/page_4.dart';
+import 'screens/home.dart';
 import 'screens/tab_page.dart';
 
 void main() {
@@ -49,7 +48,7 @@ final _router = GoRouter(
         ]),
     GoRoute(
       path: '/',
-      builder: (context, state) => const Page4(),
+      builder: (context, state) => const Home(),
     ),
   ],
 );

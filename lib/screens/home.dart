@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:wds_first_app/widgets/product_card.dart';
 
-class Page4 extends StatelessWidget {
-  const Page4({super.key});
+class Home extends StatelessWidget {
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +17,13 @@ class Page4 extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             separatorBuilder: (context, index) {
               return const SizedBox(
-                height: 16,
-                width: 16,
+                height: 15,
+                width: 15,
               );
             },
             itemCount: 10,
             itemBuilder: (context, index) {
-              return Container(
-                height: double.infinity,
-                width: 175,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.circular(18),
-                ),
-                child: Text('HELLO'),
-              );
+              return const ProductCard();
             },
           ),
         ),
