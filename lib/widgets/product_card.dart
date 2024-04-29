@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../models/offers.dart';
+
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key});
+  const ProductCard({super.key, required this.offer});
+
+  final Offer offer;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,7 @@ class ProductCard extends StatelessWidget {
               height: 80,
               width: 100,
               child: Image.network(
-                'https://picsum.photos/100?image=292',
+                offer.imageUrl,
                 // fit: BoxFit.contain,
               ),
             ),
@@ -33,20 +37,20 @@ class ProductCard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Organic Bananas',
-                style: TextStyle(
+                offer.title,
+                style: const TextStyle(
                   color: Color.fromRGBO(24, 23, 37, 1.0),
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               Text(
-                '7 pcs, Price',
-                style: TextStyle(
+                offer.qty,
+                style: const TextStyle(
                   color: Color.fromRGBO(124, 124, 124, 1.0),
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
@@ -57,28 +61,31 @@ class ProductCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                '\$4.99',
-                style: TextStyle(
+              Text(
+                '\$${offer.price}',
+                style: const TextStyle(
                   color: Color.fromRGBO(24, 23, 37, 1.0),
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Container(
-                width: 45,
-                height: 45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(17.0),
-                  color: const Color.fromRGBO(83, 177, 117, 1.0),
-                ),
-                child: InkWell(
-                  onTap: () {
-                    print('CLICK');
-                  },
+              InkWell(
+                onTap: () {
+                  print('CLICK');
+                },
+                borderRadius: BorderRadius.circular(17),
+                splashColor: Colors.yellow,
+                child: Container(
+                  width: 45,
+                  height: 45,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(17),
+                    color: const Color.fromRGBO(83, 177, 117, 1.0),
+                  ),
                   child: const Icon(
                     Icons.add,
                     color: Colors.white,
+                    size: 30,
                   ),
                 ),
               ),
