@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-
 import '../models/offers.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.offer});
+  const ProductCard({super.key, required this.offer, required this.action});
 
   final Offer offer;
+  final void Function(dynamic value) action;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: double.infinity,
       width: 175,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
@@ -47,6 +46,8 @@ class ProductCard extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
               ),
               Text(
                 offer.qty,
@@ -71,7 +72,7 @@ class ProductCard extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  print('CLICK');
+                  action('${offer.id} - ${offer.title}');
                 },
                 borderRadius: BorderRadius.circular(17),
                 splashColor: Colors.yellow,

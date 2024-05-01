@@ -6,6 +6,14 @@ import 'screens/page_3.dart';
 import 'screens/home.dart';
 import 'screens/tab_page.dart';
 
+final theme = ThemeData(
+  useMaterial3: true,
+  colorScheme: ColorScheme.fromSeed(
+    brightness: Brightness.light,
+    seedColor: const Color.fromRGBO(83, 177, 117, 1.0),
+  ),
+);
+
 void main() {
   runApp(const MyApp());
 }
@@ -62,10 +70,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       routerConfig: _router,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: theme,
     );
   }
 }

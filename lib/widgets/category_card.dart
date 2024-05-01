@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../models/categories.dart';
@@ -9,36 +10,43 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 105,
-      width: 250,
-      padding: const EdgeInsets.all(15),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(18),
-        color: category.color,
-      ),
-      child: Row(
-        children: [
-          SizedBox(
-            height: 70,
-            width: 70,
-            child: Image.network(
-              category.imageUrl,
-              fit: BoxFit.contain,
+    return Padding(
+      padding: const EdgeInsets.all(7.5),
+      child: Container(
+        height: 105,
+        width: 250,
+        padding: const EdgeInsets.all(15),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18),
+          color: category.color,
+        ),
+        child: Row(
+          children: [
+            SizedBox(
+              height: 70,
+              width: 70,
+              child: Image.network(
+                category.imageUrl,
+                fit: BoxFit.contain,
+              ),
             ),
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          Text(
-            category.title,
-            style: const TextStyle(
-              color: Color.fromRGBO(62, 66, 63, 1.0),
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
+            const SizedBox(
+              width: 15,
             ),
-          )
-        ],
+            Expanded(
+              child: Text(
+                category.title,
+                style: const TextStyle(
+                  color: Color.fromRGBO(62, 66, 63, 1.0),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

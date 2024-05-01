@@ -7,22 +7,27 @@ import '../data/categories_data.dart';
 import '../data/offers_data.dart';
 import '../models/categories.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            const SectionTitle(title: 'Exclusive Offer'),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
+      body: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: SectionTitle(title: 'Exclusive Offer'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: SizedBox(
               height: 250,
               child: ListView.separated(
                 scrollDirection: Axis.horizontal,
@@ -34,40 +39,50 @@ class Home extends StatelessWidget {
                 },
                 itemCount: offers.length,
                 itemBuilder: (context, index) {
-                  return ProductCard(
-                    offer: offers[index],
-                  );
+                  return ProductCard(offer: offers[index], action: _addProduct);
                 },
               ),
             ),
-            const SizedBox(
-              height: 50,
-            ),
-            const SectionTitle(title: 'Categories'),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 105,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 15,
-                    width: 15,
-                  );
-                },
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return CategoryCard(
-                    category: categories[index],
-                  );
-                },
+          ),
+          const SizedBox(
+            height: 50,
+          ),
+          const Padding(
+            padding: EdgeInsets.all(10.0),
+            child: SectionTitle(title: 'Categories'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(2.5),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  for (Category category in categories)
+                    CategoryCard(category: category)
+                ],
               ),
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
+  }
+
+  void _addProduct(value) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Alert'),
+            content: Text(value),
+            actions: [
+              FilledButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Ok'))
+            ],
+          );
+        });
   }
 }
