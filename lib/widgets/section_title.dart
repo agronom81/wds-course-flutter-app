@@ -7,29 +7,37 @@ class SectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        Text(
-          title,
-          style: const TextStyle(
-              color: Color.fromRGBO(24, 23, 37, 1.0),
-              fontWeight: FontWeight.w600,
-              fontSize: 24),
-        ),
-        InkWell(
-          onTap: () {
-            print('GO');
-          },
-          child: const Text(
-            'See all',
-            style: TextStyle(
-              color: Color.fromRGBO(83, 177, 117, 1.0),
-              fontWeight: FontWeight.w600,
-              fontSize: 16,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: Color.fromRGBO(24, 23, 37, 1.0),
+                fontWeight: FontWeight.w600,
+                fontSize: 24,
+              ),
             ),
-          ),
+            InkWell(
+              onTap: () {
+                print('GO');
+              },
+              child: const Text(
+                'See all',
+                style: TextStyle(
+                  color: Color.fromRGBO(83, 177, 117, 1.0),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
         ),
+        const SizedBox(
+          height: 20,
+        )
       ],
     );
   }

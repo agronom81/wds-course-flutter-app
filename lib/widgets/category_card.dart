@@ -10,8 +10,10 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(7.5),
+    return InkWell(
+      onTap: () {
+        print('Go page ${category.title}');
+      },
       child: Container(
         height: 105,
         width: 250,

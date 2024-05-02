@@ -10,6 +10,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 250,
       width: 175,
       padding: const EdgeInsets.all(15),
       decoration: BoxDecoration(
