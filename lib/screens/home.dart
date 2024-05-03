@@ -6,16 +6,29 @@ import 'package:wds_first_app/widgets/section_title.dart';
 import '../data/categories_data.dart';
 import '../data/offers_data.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  @override
   Widget build(BuildContext context) {
+    void addProduct(value) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Alert'),
+              content: Text(value),
+              actions: [
+                FilledButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text('Ok'))
+              ],
+            );
+          });
+    }
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -39,7 +52,7 @@ class _HomeState extends State<Home> {
                   itemBuilder: (context, index) {
                     return ProductCard(
                       offer: offers[index],
-                      action: _addProduct,
+                      action: addProduct,
                     );
                   },
                 ),
@@ -71,23 +84,5 @@ class _HomeState extends State<Home> {
         ),
       ),
     );
-  }
-
-  void _addProduct(value) {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Alert'),
-            content: Text(value),
-            actions: [
-              FilledButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('Ok'))
-            ],
-          );
-        });
   }
 }
