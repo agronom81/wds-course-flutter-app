@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import '../models/offers.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({super.key, required this.offer, required this.action});
+  const ProductCard({
+    super.key,
+    required this.offer,
+    required this.action,
+  });
 
   final Offer offer;
   final void Function(dynamic value) action;

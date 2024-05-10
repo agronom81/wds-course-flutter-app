@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import '../models/categories.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key, required this.category});
+  const CategoryCard({
+    super.key,
+    required this.category,
+  });
 
   final Category category;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print('Go page ${category.title}');
-      },
+      onTap: () {},
       child: Container(
         height: 105,
         width: 250,

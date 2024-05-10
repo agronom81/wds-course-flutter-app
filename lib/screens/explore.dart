@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/categories_data.dart';
 import '../widgets/category_vertical_card.dart';
 import '../widgets/screen_title.dart';
+import '../widgets/search_field.dart';
 
 class Explore extends StatelessWidget {
   const Explore({super.key});
@@ -17,16 +18,13 @@ class Explore extends StatelessWidget {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.only(left: 25, right: 25),
         child: ListView(
           children: [
-            const TextField(
-              decoration: InputDecoration(
-                hintText: '',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-              ),
+            const SizedBox(
+              height: 30,
             ),
+            const SearchField(),
             const SizedBox(
               height: 25,
             ),
@@ -37,11 +35,15 @@ class Explore extends StatelessWidget {
                 crossAxisCount: 2,
                 crossAxisSpacing: 15.0,
                 mainAxisSpacing: 15.0,
+                mainAxisExtent: 210,
               ),
               itemCount: categoriesList.length,
               itemBuilder: (BuildContext context, int index) {
                 return CategoryVerticalCard(category: categoriesList[index]);
               },
+            ),
+            const SizedBox(
+              height: 20,
             ),
           ],
         ),

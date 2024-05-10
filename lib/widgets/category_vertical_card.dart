@@ -10,14 +10,12 @@ class CategoryVerticalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        print('Go page ${category.title}');
-      },
+      onTap: () {},
       child: Container(
         padding:
             const EdgeInsets.only(top: 27, left: 30, right: 30, bottom: 15),
         decoration: BoxDecoration(
-            color: category.color.withOpacity(0.2),
+            color: category.color.withOpacity(0.25),
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
               color: category.color,
@@ -45,6 +43,8 @@ class CategoryVerticalCard extends StatelessWidget {
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
               ),
             )
           ],
