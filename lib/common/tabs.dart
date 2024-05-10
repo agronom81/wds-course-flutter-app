@@ -97,64 +97,6 @@ class _TabsState extends State<Tabs> {
           ],
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //     onTap: (value) {
-      //       if (value == 0) {
-      //         context.goNamed('shop');
-      //       }
-      //
-      //       if (value == 1) {
-      //         context.goNamed('explore');
-      //       }
-      //
-      //       if (value == 2) {
-      //         context.goNamed('cart');
-      //       }
-      //
-      //       if (value == 3) {
-      //         context.goNamed('favourite');
-      //       }
-      //
-      //       if (value == 4) {
-      //         context.goNamed('account');
-      //       }
-      //       setState(() {
-      //         page = value;
-      //       });
-      //     },
-      //     elevation: 8.0,
-      //     type: BottomNavigationBarType.fixed,
-      //     currentIndex: page,
-      //     unselectedItemColor: Colors.orange,
-      //     selectedItemColor: Colors.blue,
-      //     items: [
-      //       BottomNavigationBarItem(
-      //         icon: SvgPicture.string(
-      //           shop,
-      //           width: 20,
-      //           height: 20,
-      //         ),
-      //         label: 'Shop',
-      //       ),
-      //       const BottomNavigationBarItem(
-      //         icon: Icon(
-      //           Icons.ac_unit,
-      //         ),
-      //         label: 'Explore',
-      //       ),
-      //       const BottomNavigationBarItem(
-      //         icon: Icon(Icons.ac_unit),
-      //         label: 'Cart',
-      //       ),
-      //       const BottomNavigationBarItem(
-      //         icon: Icon(Icons.ac_unit),
-      //         label: 'Favourite',
-      //       ),
-      //       const BottomNavigationBarItem(
-      //         icon: Icon(Icons.ac_unit),
-      //         label: 'Account',
-      //       ),
-      //     ]),
     );
   }
 }
