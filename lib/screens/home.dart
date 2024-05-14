@@ -35,7 +35,10 @@ class Home extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
-            const SectionTitle(title: 'Exclusive Offer'),
+            const SectionTitle(
+              title: 'Exclusive Offer',
+              routeName: 'explore',
+            ),
             SizedBox(
               height: 250,
               child: ListView.separated(
@@ -59,7 +62,10 @@ class Home extends StatelessWidget {
             const SizedBox(
               height: 50,
             ),
-            const SectionTitle(title: 'Categories'),
+            const SectionTitle(
+              title: 'Categories',
+              routeName: 'explore',
+            ),
             SizedBox(
               height: 105,
               child: ListView.separated(

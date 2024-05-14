@@ -6,7 +6,9 @@ class SearchField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      onChanged: (value) {},
+      onChanged: (value) {
+        print(value);
+      },
       decoration: const InputDecoration(
         filled: true,
         fillColor: Color.fromRGBO(242, 243, 242, 1),

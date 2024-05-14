@@ -6,7 +6,8 @@ import '../widgets/screen_title.dart';
 import '../widgets/search_field.dart';
 
 class Explore extends StatelessWidget {
-  const Explore({super.key});
+  const Explore({super.key, this.state});
+  final dynamic state;
 
   @override
   Widget build(BuildContext context) {

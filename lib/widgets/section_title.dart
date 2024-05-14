@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class SectionTitle extends StatelessWidget {
-  const SectionTitle({super.key, required this.title});
+  const SectionTitle({
+    super.key,
+    required this.title,
+    required this.routeName,
+  });
 
   final String title;
+  final String routeName;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +29,12 @@ class SectionTitle extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  context.goNamed(
+                    routeName,
+                    extra: 'Hello',
+                  );
+                },
                 child: const Text(
                   'See all',
                   style: TextStyle(
