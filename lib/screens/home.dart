@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wds_first_app/widgets/category_card.dart';
 import 'package:wds_first_app/widgets/product_card.dart';
 import 'package:wds_first_app/widgets/section_title.dart';
 
 import '../data/categories_data.dart';
 import '../data/offers_data.dart';
+import '../icons/carrot.dart';
+import '../widgets/search_field.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -35,6 +38,17 @@ class Home extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
+            SizedBox(
+              height: 50,
+              child: SvgPicture.string(
+                carrot,
+                height: 40,
+              ),
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+              child: SearchField(),
+            ),
             const SectionTitle(
               title: 'Exclusive Offer',
               routeName: 'explore',
