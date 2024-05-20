@@ -6,6 +6,7 @@ import '../screens/explore.dart';
 import '../screens/favourite.dart';
 import '../screens/home.dart';
 import '../screens/login.dart';
+import '../screens/product.dart';
 import 'tabs.dart';
 
 final router = GoRouter(
@@ -46,6 +47,10 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const Login(),
+    ),
+    GoRoute(
+      path: '/product',
+      builder: (context, state) => const Product(),
     ),
   ],
 );

@@ -63,16 +63,16 @@ class SearchField extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 20),
             itemBuilder: (BuildContext context, int index) {
               final option = options.elementAt(index);
-              return ListTile(
-                title: Text(option),
+              return InkWell(
+                child: Text(option),
                 onTap: () {
                   onSelected(option);
                 },
               );
             },
             separatorBuilder: (BuildContext context, int index) {
-              return const Divider(
-                color: Colors.white,
+              return Divider(
+                color: Colors.white.withOpacity(0),
               );
             },
             itemCount: options.length,

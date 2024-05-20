@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wds_first_app/icons/carrot.dart';
 
 import '../widgets/custom_text.dart';
+import '../widgets/primary_button.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -170,27 +171,9 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 67,
-                        child: FilledButton(
-                          style: ButtonStyle(
-                            shape:
-                                WidgetStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(19.0),
-                              ),
-                            ),
-                          ),
-                          onPressed: _login,
-                          child: const Text(
-                            'Log In',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
+                      PrimaryButton(
+                        title: 'Log In',
+                        action: _login,
                       ),
                       const SizedBox(
                         height: 25,
