@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../models/offers.dart';
 import '../widgets/primary_button.dart';
+import '../widgets/qty_counter.dart';
 
 class Product extends StatefulWidget {
   const Product({super.key});
@@ -12,13 +13,6 @@ class Product extends StatefulWidget {
 }
 
 class _ProductState extends State<Product> {
-  int count = 1;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final Offer offer = GoRouterState.of(context).extra! as Offer;
@@ -95,9 +89,12 @@ class _ProductState extends State<Product> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Counter'),
+                      const QtyCounter(),
                       Text('\$${offer.price}'),
                     ],
+                  ),
+                  const SizedBox(
+                    height: 30,
                   ),
                   PrimaryButton(
                     title: 'Add To Basket',

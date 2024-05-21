@@ -1,3 +1,13 @@
+class OfferDescription {
+  OfferDescription({
+    required this.title,
+    required this.description,
+  });
+
+  String title;
+  String description;
+}
+
 class Offer {
   const Offer({
     required this.id,
@@ -6,6 +16,7 @@ class Offer {
     required this.title,
     required this.qty,
     required this.price,
+    required this.description,
   });
 
   final int id;
@@ -14,4 +25,5 @@ class Offer {
   final String title;
   final String qty;
   final double price;
+  final List<OfferDescription> description;
 }
