@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wds_first_app/widgets/accordion.dart';
 
 import '../models/offers.dart';
 import '../widgets/primary_button.dart';
@@ -93,6 +94,21 @@ class _ProductState extends State<Product> {
                       Text('\$${offer.price}'),
                     ],
                   ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  const Divider(
+                    color: Color.fromRGBO(226, 226, 226, 0.7),
+                  ),
+                  for (var offerDescription in offer.description)
+                    Column(
+                      children: [
+                        Accordion(offerDescription: [offerDescription]),
+                        const Divider(
+                          color: Color.fromRGBO(226, 226, 226, 0.7),
+                        ),
+                      ],
+                    ),
                   const SizedBox(
                     height: 30,
                   ),

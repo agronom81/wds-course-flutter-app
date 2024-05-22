@@ -2,10 +2,12 @@ class OfferDescription {
   OfferDescription({
     required this.title,
     required this.description,
+    this.weight = '',
   });
 
   String title;
   String description;
+  String weight;
 }
 
 class Offer {
