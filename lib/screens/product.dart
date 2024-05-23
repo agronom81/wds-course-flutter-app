@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:wds_first_app/widgets/accordion.dart';
 
 import '../models/offers.dart';
+import '../widgets/image_slider.dart';
 import '../widgets/primary_button.dart';
 import '../widgets/qty_counter.dart';
 
@@ -20,21 +21,25 @@ class _ProductState extends State<Product> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Page 1'),
+        title: const Text(''),
         backgroundColor: const Color.fromRGBO(242, 242, 242, 1),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.upload,
+              color: Color.fromRGBO(24, 23, 37, 1),
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.only(
-                left: 40,
-                right: 40,
-                top: 25,
-              ),
               width: double.infinity,
-              height: 320,
+              height: 330,
               alignment: Alignment.topCenter,
               decoration: const BoxDecoration(
                 color: Color.fromRGBO(242, 242, 242, 1),
@@ -43,10 +48,8 @@ class _ProductState extends State<Product> {
                   bottomRight: Radius.circular(25.0),
                 ),
               ),
-              child: Image.network(
-                offer.bigImageUrl,
-                fit: BoxFit.contain,
-                // fit: BoxFit.contain,
+              child: ImageSlider(
+                images: offer.images,
               ),
             ),
             Padding(
@@ -76,6 +79,7 @@ class _ProductState extends State<Product> {
                       Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: InkWell(
+                          borderRadius: BorderRadius.circular(20),
                           onTap: () {},
                           child: const Icon(
                             Icons.favorite_border,

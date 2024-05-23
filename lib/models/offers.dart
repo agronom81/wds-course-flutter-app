@@ -14,7 +14,7 @@ class Offer {
   const Offer({
     required this.id,
     required this.imageUrl,
-    required this.bigImageUrl,
+    required this.images,
     required this.title,
     required this.qty,
     required this.price,
@@ -23,7 +23,7 @@ class Offer {
 
   final int id;
   final String imageUrl;
-  final String bigImageUrl;
+  final List<String> images;
   final String title;
   final String qty;
   final double price;
