@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wds_first_app/widgets/accordion.dart';
 
+import '../common/app_color.dart';
 import '../models/offers.dart';
 import '../widgets/image_slider.dart';
 import '../widgets/primary_button.dart';
@@ -69,7 +70,7 @@ class _ProductState extends State<Product> {
                           Text(
                             offer.qty,
                             style: const TextStyle(
-                              color: Color.fromRGBO(124, 124, 124, 1),
+                              color: AppColor.textColor,
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),

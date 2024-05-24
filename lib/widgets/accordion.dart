@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wds_first_app/widgets/custom_text.dart';
 
+import '../common/app_color.dart';
 import '../models/offers.dart';
 
 class Item {
@@ -92,7 +93,7 @@ class _AccordionState extends State<Accordion> {
                         ),
                         child: CustomText(
                           text: item.weight,
-                          color: const Color.fromRGBO(124, 124, 124, 1),
+                          color: AppColor.textColor,
                           fontSize: 9,
                           fontWeight: FontWeight.w600,
                         ),
@@ -104,7 +105,7 @@ class _AccordionState extends State<Accordion> {
                 padding: const EdgeInsets.only(bottom: 20),
                 child: CustomText(
                   text: item.description,
-                  color: const Color.fromRGBO(124, 124, 124, 1),
+                  color: AppColor.textColor,
                   fontSize: 13,
                 ),
               ),

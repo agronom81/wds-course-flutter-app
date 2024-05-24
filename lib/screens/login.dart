@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wds_first_app/icons/carrot.dart';
 
+import '../common/app_color.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/primary_button.dart';
 
@@ -29,7 +29,7 @@ class _LoginState extends State<Login> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('images/loginBg.jpg'),
-            fit: BoxFit.fill,
+            fit: BoxFit.cover,
           ),
         ),
         child: SingleChildScrollView(
@@ -62,7 +62,7 @@ class _LoginState extends State<Login> {
                       ),
                       const CustomText(
                         text: 'Enter your emails and password',
-                        color: Color.fromRGBO(124, 124, 124, 1),
+                        color: AppColor.textColor,
                       ),
                       const SizedBox(
                         height: 40,
@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
                         children: [
                           const CustomText(
                             text: 'Email',
-                            color: Color.fromRGBO(124, 124, 124, 1),
+                            color: AppColor.textColor,
                           ),
                           TextFormField(
                             controller: email,
@@ -114,7 +114,7 @@ class _LoginState extends State<Login> {
                         children: [
                           const CustomText(
                             text: 'Password',
-                            color: Color.fromRGBO(124, 124, 124, 1),
+                            color: AppColor.textColor,
                           ),
                           TextFormField(
                             controller: password,
