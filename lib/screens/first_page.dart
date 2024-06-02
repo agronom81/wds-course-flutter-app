@@ -12,9 +12,7 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   void initState() {
-    controller.addListener(() {
-      print(controller.page);
-    });
+    controller.addListener(() {});
     super.initState();
   }
 

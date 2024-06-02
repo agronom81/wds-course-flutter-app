@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({super.key, required this.images});
+  const ImageSlider({
+    super.key,
+    required this.images,
+    this.dotsBottom = 20,
+  });
 
-  final List<String> images;
+  final List<dynamic> images;
+  final double dotsBottom;
 
   @override
   State createState() => _ImageSliderState();
@@ -41,7 +46,7 @@ class _ImageSliderState extends State<ImageSlider> {
           ),
         ),
         Positioned(
-          bottom: 20,
+          bottom: widget.dotsBottom,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: _buildPageIndicator(),

@@ -9,7 +9,7 @@ class ProductCard extends StatelessWidget {
     required this.action,
   });
 
-  final Offer offer;
+  final dynamic offer;
   final void Function(dynamic value) action;
 
   @override
@@ -38,7 +38,7 @@ class ProductCard extends StatelessWidget {
                 height: 80,
                 width: 100,
                 child: Image.network(
-                  offer.imageUrl,
+                  offer['preview_image'],
                   fit: BoxFit.contain,
                 ),
               ),
@@ -50,7 +50,7 @@ class ProductCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  offer.title,
+                  offer['name'],
                   style: const TextStyle(
                     color: Color.fromRGBO(24, 23, 37, 1.0),
                     fontSize: 16,
@@ -60,7 +60,7 @@ class ProductCard extends StatelessWidget {
                   maxLines: 2,
                 ),
                 Text(
-                  offer.qty,
+                  offer['short_description'],
                   style: const TextStyle(
                     color: Color.fromRGBO(124, 124, 124, 1.0),
                     fontSize: 14,
@@ -73,7 +73,7 @@ class ProductCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '\$${offer.price}',
+                  '\$${offer['price']}',
                   style: const TextStyle(
                     color: Color.fromRGBO(24, 23, 37, 1.0),
                     fontSize: 18,
@@ -82,7 +82,7 @@ class ProductCard extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    action('${offer.id} - ${offer.title}');
+                    action('${offer['id']} - ${offer['price']}');
                   },
                   borderRadius: BorderRadius.circular(17),
                   splashColor: Colors.yellow,

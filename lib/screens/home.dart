@@ -1,106 +1,130 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wds_first_app/widgets/category_card.dart';
-import 'package:wds_first_app/widgets/product_card.dart';
+import 'package:wds_first_app/widgets/home/home_products.dart';
 import 'package:wds_first_app/widgets/section_title.dart';
 
+import '../api/server_api.dart';
 import '../data/categories_data.dart';
-import '../data/offers_data.dart';
 import '../icons/carrot.dart';
+import '../widgets/custom_text.dart';
+import '../widgets/home/home_categories.dart';
+import '../widgets/home/home_slider.dart';
 import '../widgets/search_field.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    void addProduct(value) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('Alert'),
-              content: Text(value),
-              actions: [
-                FilledButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Ok'))
-              ],
-            );
-          });
-    }
+  State<Home> createState() => _HomeState();
+}
 
+class _HomeState extends State<Home> {
+  ServerApi api = ServerApi();
+  late dynamic data;
+  late bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50,
-              child: SvgPicture.string(
-                carrot,
-                height: 40,
-              ),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.white,
+      ),
+      body: isLoading
+          ? const Center(
+              child: Text('Loading...'),
+            )
+          : HomeContent(
+              data: data,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
-              child: SearchField(),
+    );
+  }
+
+  void _getData() {
+    api.getHome().then((value) {
+      if (value.code >= 200 && value.code < 300 && value.status) {
+        setState(() {
+          data = value.data;
+          isLoading = false;
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: CustomText(
+              text: value.message,
+              color: Colors.white,
             ),
-            const SectionTitle(
-              title: 'Exclusive Offer',
-              routeName: 'explore',
+          ),
+        );
+      }
+    });
+  }
+}
+
+class HomeContent extends StatelessWidget {
+  final Map<String, dynamic> data;
+
+  const HomeContent({
+    super.key,
+    required this.data,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+      child: Column(
+        children: [
+          SizedBox(
+            height: 50,
+            child: SvgPicture.string(
+              carrot,
+              height: 40,
             ),
-            SizedBox(
-              height: 250,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 15,
-                    width: 15,
-                  );
-                },
-                padding: const EdgeInsets.only(right: 25, left: 25),
-                itemCount: offers.length,
-                itemBuilder: (context, index) {
-                  return ProductCard(
-                    offer: offers[index],
-                    action: addProduct,
-                  );
-                },
-              ),
-            ),
-            const SizedBox(
-              height: 50,
-            ),
-            const SectionTitle(
-              title: 'Categories',
-              routeName: 'explore',
-            ),
-            SizedBox(
-              height: 105,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.only(right: 25, left: 25),
-                separatorBuilder: (context, index) {
-                  return const SizedBox(
-                    height: 15,
-                    width: 15,
-                  );
-                },
-                itemCount: categories.length,
-                itemBuilder: (context, index) {
-                  return CategoryCard(
-                    category: categories[index],
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+            child: SearchField(),
+          ),
+          data['slider'] != null && data['slider'].length > 0
+              ? HomeSlider(
+                  images: data['slider'],
+                  dotsBottom: 8,
+                )
+              : const SizedBox(
+                  height: 0,
+                ),
+          data['exclusive'] != null && data['exclusive'].length > 0
+              ? HomeProducts(
+                  products: data['exclusive'],
+                  routeName: 'explore',
+                  blockTitle: 'Exclusive Offer',
+                )
+              : const SizedBox(
+                  height: 0,
+                ),
+          data['best'] != null && data['best'].length > 0
+              ? HomeProducts(
+                  products: data['best'],
+                  routeName: 'explore',
+                  blockTitle: 'Best Selling',
+                )
+              : const SizedBox(
+                  height: 0,
+                ),
+          data['category'] != null && data['category'].length > 0
+              ? HomeCategories(categories: data['category'])
+              : const SizedBox(
+                  height: 0,
+                ),
+        ],
       ),
     );
   }

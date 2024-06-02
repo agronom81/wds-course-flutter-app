@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:wds_first_app/models/categories.dart';
 
+import '../common/color_apis.dart';
+
 List<Category> categories = [
   Category(
     id: 1,
     imageUrl: 'https://picsum.photos/100?image=292',
     title: 'Organic',
-    color: Colors.orange.shade200,
+    color: HexColor.fromHex('#b74093'),
   ),
   Category(
     id: 2,

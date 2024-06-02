@@ -6,6 +6,7 @@ final theme = ThemeData(
     brightness: Brightness.light,
     seedColor: const Color.fromRGBO(83, 177, 117, 1.0),
   ),
+  scaffoldBackgroundColor: Colors.white,
   filledButtonTheme: FilledButtonThemeData(
     style: ButtonStyle(
       backgroundColor: WidgetStateProperty.all<Color>(
