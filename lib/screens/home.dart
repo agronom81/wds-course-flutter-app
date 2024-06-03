@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wds_first_app/widgets/category_card.dart';
-import 'package:wds_first_app/widgets/home/home_products.dart';
-import 'package:wds_first_app/widgets/section_title.dart';
 
 import '../api/server_api.dart';
-import '../data/categories_data.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/home/home_categories.dart';
+import '../widgets/home/home_products.dart';
 import '../widgets/home/home_slider.dart';
 import '../widgets/search_field.dart';
 
@@ -84,7 +81,7 @@ class HomeContent extends StatelessWidget {
           SizedBox(
             height: 50,
             child: SvgPicture.string(
-              carrot,
+              'icons/carrot.svg',
               height: 40,
             ),
           ),
