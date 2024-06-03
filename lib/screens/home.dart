@@ -6,7 +6,6 @@ import 'package:wds_first_app/widgets/section_title.dart';
 
 import '../data/categories_data.dart';
 import '../data/offers_data.dart';
-import '../icons/carrot.dart';
 import '../widgets/search_field.dart';
 
 class Home extends StatelessWidget {
@@ -40,8 +39,8 @@ class Home extends StatelessWidget {
           children: [
             SizedBox(
               height: 50,
-              child: SvgPicture.string(
-                carrot,
+              child: SvgPicture.asset(
+                'icons/carrot.svg',
                 height: 40,
               ),
             ),

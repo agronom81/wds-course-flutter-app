@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wds_first_app/icons/carrot.dart';
 
 import '../common/app_color.dart';
 import '../widgets/custom_text.dart';
@@ -38,8 +37,8 @@ class _LoginState extends State<Login> {
             children: [
               SizedBox(
                 height: 230,
-                child: SvgPicture.string(
-                  carrot,
+                child: SvgPicture.asset(
+                  'icons/carrot.svg',
                   width: 47,
                   height: 55,
                 ),
