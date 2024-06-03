@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import '../models/categories.dart';
+import '../common/color_apis.dart';
 
 class CategoryVerticalCard extends StatelessWidget {
   const CategoryVerticalCard({super.key, required this.category});
 
-  final Category category;
+  final Map<String, dynamic> category;
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +15,14 @@ class CategoryVerticalCard extends StatelessWidget {
         padding:
             const EdgeInsets.only(top: 27, left: 30, right: 30, bottom: 15),
         decoration: BoxDecoration(
-            color: category.color.withOpacity(0.25),
+            color: category['color'] != null
+                ? HexColor.fromHex(category['color']).withOpacity(0.25)
+                : Colors.grey.shade200,
             borderRadius: BorderRadius.circular(18),
             border: Border.all(
-              color: category.color,
+              color: category['color'] != null
+                  ? HexColor.fromHex(category['color'])
+                  : Colors.grey,
               width: 2,
             )),
         child: Column(
@@ -27,7 +31,7 @@ class CategoryVerticalCard extends StatelessWidget {
               height: 93,
               width: 93,
               child: Image.network(
-                category.imageUrl,
+                category['icon'] ?? '',
                 fit: BoxFit.contain,
               ),
             ),
@@ -37,7 +41,9 @@ class CategoryVerticalCard extends StatelessWidget {
             Flexible(
               child: Text(
                 textAlign: TextAlign.center,
-                category.title,
+                category['name'] != null
+                    ? category['name'].replaceAll('&amp;', '&')
+                    : '',
                 style: const TextStyle(
                   color: Color.fromRGBO(24, 23, 37, 1.0),
                   fontSize: 16,

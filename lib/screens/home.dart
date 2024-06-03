@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../api/server_api.dart';
 import '../widgets/custom_text.dart';
+import '../widgets/empty.dart';
 import '../widgets/home/home_categories.dart';
 import '../widgets/home/home_products.dart';
 import '../widgets/home/home_slider.dart';
@@ -80,7 +81,7 @@ class HomeContent extends StatelessWidget {
         children: [
           SizedBox(
             height: 50,
-            child: SvgPicture.string(
+            child: SvgPicture.asset(
               'icons/carrot.svg',
               height: 40,
             ),
@@ -94,32 +95,24 @@ class HomeContent extends StatelessWidget {
                   images: data['slider'],
                   dotsBottom: 8,
                 )
-              : const SizedBox(
-                  height: 0,
-                ),
+              : const Empty(),
           data['exclusive'] != null && data['exclusive'].length > 0
               ? HomeProducts(
                   products: data['exclusive'],
                   routeName: 'explore',
                   blockTitle: 'Exclusive Offer',
                 )
-              : const SizedBox(
-                  height: 0,
-                ),
+              : const Empty(),
           data['best'] != null && data['best'].length > 0
               ? HomeProducts(
                   products: data['best'],
                   routeName: 'explore',
                   blockTitle: 'Best Selling',
                 )
-              : const SizedBox(
-                  height: 0,
-                ),
+              : const Empty(),
           data['category'] != null && data['category'].length > 0
               ? HomeCategories(categories: data['category'])
-              : const SizedBox(
-                  height: 0,
-                ),
+              : const Empty(),
         ],
       ),
     );

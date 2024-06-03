@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 
-import '../data/categories_data.dart';
-import '../widgets/category_vertical_card.dart';
+import '../api/server_api.dart';
+import '../widgets/custom_text.dart';
+import '../widgets/explore/explore_categories.dart';
 import '../widgets/screen_title.dart';
 import '../widgets/search_field.dart';
 
-class Explore extends StatelessWidget {
-  const Explore({super.key, this.state});
-  final dynamic state;
+class Explore extends StatefulWidget {
+  const Explore({super.key});
+
+  @override
+  State<Explore> createState() => _ExploreState();
+}
+
+class _ExploreState extends State<Explore> {
+  ServerApi api = ServerApi();
+  late dynamic data;
+  late bool isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,20 +44,13 @@ class Explore extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            GridView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 15.0,
-                mainAxisSpacing: 15.0,
-                mainAxisExtent: 210,
-              ),
-              itemCount: categoriesList.length,
-              itemBuilder: (BuildContext context, int index) {
-                return CategoryVerticalCard(category: categoriesList[index]);
-              },
-            ),
+            isLoading
+                ? const Center(
+                    child: Text('Loading...'),
+                  )
+                : ExploreCategories(
+                    categories: data,
+                  ),
             const SizedBox(
               height: 20,
             ),
@@ -50,5 +58,25 @@ class Explore extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _getData() {
+    api.getCategories().then((value) {
+      if (value.code >= 200 && value.code < 300 && value.status) {
+        setState(() {
+          data = value.data;
+          isLoading = false;
+        });
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: CustomText(
+              text: value.message,
+              color: Colors.white,
+            ),
+          ),
+        );
+      }
+    });
   }
 }

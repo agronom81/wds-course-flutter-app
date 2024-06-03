@@ -20,4 +20,14 @@ class ServerApi {
     Map<String, dynamic> data = {};
     return api.sendGet(path: '/home', data: data);
   }
+
+  Future<HttpServerResponse> getCategories() async {
+    Map<String, dynamic> data = {};
+    return api.sendGet(path: '/product/categories', data: data);
+  }
+
+  Future<HttpServerResponse> getProduct({required dynamic id}) async {
+    Map<String, dynamic> data = {'id': id};
+    return api.sendGet(path: '/product', data: data);
+  }
 }

@@ -29,7 +29,7 @@ class CategoryCard extends StatelessWidget {
               height: 70,
               width: 70,
               child: Image.network(
-                category['icon'],
+                category['icon'] ?? '',
                 fit: BoxFit.contain,
               ),
             ),

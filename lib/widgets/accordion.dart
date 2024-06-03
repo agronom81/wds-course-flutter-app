@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wds_first_app/widgets/custom_text.dart';
 
 import '../common/app_color.dart';
-import '../models/offers.dart';
 
 class Item {
   Item({
@@ -20,15 +19,15 @@ class Item {
   bool isExpanded;
 }
 
-List<Item> generateItems(List<OfferDescription> offerDescription) {
+List<Item> generateItems(List<dynamic> offerDescription) {
   final List<Item> result = [];
 
   for (int i = 0; i < offerDescription.length; i++) {
     final item = Item(
-      expandedValue: offerDescription[i].title,
-      headerValue: offerDescription[i].title,
-      description: offerDescription[i].description,
-      weight: offerDescription[i].weight ?? '',
+      expandedValue: offerDescription[i]['title'],
+      headerValue: offerDescription[i]['title'],
+      description: offerDescription[i]['description'],
+      weight: offerDescription[i]['weight'] ?? '',
     );
     result.add(item);
   }
@@ -38,10 +37,10 @@ List<Item> generateItems(List<OfferDescription> offerDescription) {
 class Accordion extends StatefulWidget {
   const Accordion({
     super.key,
-    required this.offerDescription,
+    required this.description,
   });
 
-  final List<OfferDescription> offerDescription;
+  final List<dynamic> description;
 
   @override
   State<Accordion> createState() => _AccordionState();
@@ -52,7 +51,7 @@ class _AccordionState extends State<Accordion> {
 
   @override
   void initState() {
-    _data = generateItems(widget.offerDescription);
+    _data = generateItems(widget.description);
     super.initState();
   }
 
@@ -70,6 +69,7 @@ class _AccordionState extends State<Accordion> {
           },
           children: _data.map<ExpansionPanel>((Item item) {
             return ExpansionPanel(
+              backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
               canTapOnHeader: true,
               headerBuilder: (BuildContext context, bool isExpanded) {
                 return Row(
