@@ -6,7 +6,6 @@ import 'package:wds_first_app/widgets/section_title.dart';
 
 import '../api/server_api.dart';
 import '../data/categories_data.dart';
-import '../icons/carrot.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/home/home_categories.dart';
 import '../widgets/home/home_slider.dart';

@@ -2,12 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../icons/account.dart';
-import '../icons/cart.dart';
-import '../icons/explore.dart';
-import '../icons/favourite.dart';
-import '../icons/shop.dart';
-
 class Tabs extends StatefulWidget {
   final Widget child;
 
@@ -20,11 +14,11 @@ class Tabs extends StatefulWidget {
 class _TabsState extends State<Tabs> {
   String page = 'shop';
   final List<Map<String, dynamic>> _icons = [
-    {'icon': shop, 'label': 'Shop', 'route': 'shop'},
-    {'icon': explore, 'label': 'Explore', 'route': 'explore'},
-    {'icon': cart, 'label': 'Cart', 'route': 'cart'},
-    {'icon': favourite, 'label': 'Favourite', 'route': 'favourite'},
-    {'icon': account, 'label': 'Account', 'route': 'account'}
+    {'icon': 'icons/shop.svg', 'label': 'Shop', 'route': 'shop'},
+    {'icon': 'icons/explore.svg', 'label': 'Explore', 'route': 'explore'},
+    {'icon': 'icons/cart.svg', 'label': 'Cart', 'route': 'cart'},
+    {'icon': 'icons/favourite.svg', 'label': 'Favourite', 'route': 'favourite'},
+    {'icon': 'icons/account.svg', 'label': 'Account', 'route': 'account'}
   ];
   final Color _defaultColor = const Color.fromRGBO(24, 23, 37, 1);
   final Color _activeColor = const Color.fromRGBO(83, 177, 117, 1);
@@ -75,7 +69,7 @@ class _TabsState extends State<Tabs> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SvgPicture.string(
+                    SvgPicture.asset(
                       icon['icon'],
                       width: 24,
                       height: 24,

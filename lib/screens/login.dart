@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wds_first_app/icons/carrot.dart';
+import 'package:go_router/go_router.dart';
 
 import '../widgets/login/login_form.dart';
 
@@ -25,8 +26,8 @@ class Login extends StatelessWidget {
             children: [
               SizedBox(
                 height: 230,
-                child: SvgPicture.string(
-                  carrot,
+                child: SvgPicture.asset(
+                  'icons/carrot.svg',
                   width: 47,
                   height: 55,
                 ),
