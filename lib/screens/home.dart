@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../api/server_api.dart';
-import '../widgets/custom_text.dart';
 import '../widgets/empty.dart';
 import '../widgets/home/home_categories.dart';
 import '../widgets/home/home_products.dart';
@@ -52,14 +52,7 @@ class _HomeState extends State<Home> {
           isLoading = false;
         });
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: CustomText(
-              text: value.message,
-              color: Colors.white,
-            ),
-          ),
-        );
+        context.go('/');
       }
     });
   }
