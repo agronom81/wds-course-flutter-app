@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../api/server_api.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/explore/explore_categories.dart';
+import '../widgets/loader.dart';
 import '../widgets/screen_title.dart';
 import '../widgets/search_field.dart';
 
@@ -45,9 +46,7 @@ class _ExploreState extends State<Explore> {
               height: 25,
             ),
             isLoading
-                ? const Center(
-                    child: Text('Loading...'),
-                  )
+                ? const Loader()
                 : ExploreCategories(
                     categories: data,
                   ),

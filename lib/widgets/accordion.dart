@@ -14,7 +14,7 @@ class Item {
 
   String expandedValue;
   String headerValue;
-  String description;
+  dynamic description;
   String weight;
   bool isExpanded;
 }
@@ -103,16 +103,51 @@ class _AccordionState extends State<Accordion> {
               },
               body: Padding(
                 padding: const EdgeInsets.only(bottom: 20),
-                child: CustomText(
-                  text: item.description,
-                  color: AppColor.textColor,
-                  fontSize: 13,
-                ),
+                child: item.description is List
+                    ? AccordionList(data: item.description)
+                    : CustomText(
+                        text: item.description,
+                        color: AppColor.textColor,
+                        fontSize: 13,
+                      ),
               ),
               isExpanded: item.isExpanded,
             );
           }).toList(),
         ),
+      ],
+    );
+  }
+}
+
+class AccordionList extends StatelessWidget {
+  const AccordionList({
+    super.key,
+    required this.data,
+  });
+  final List<dynamic> data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        for (dynamic desc in data)
+          Row(
+            children: [
+              Expanded(
+                child: CustomText(
+                  text: desc['name'],
+                  color: AppColor.textColor,
+                  fontSize: 13,
+                ),
+              ),
+              CustomText(
+                text: desc['value'],
+                color: AppColor.textColor,
+                fontSize: 13,
+              ),
+            ],
+          )
       ],
     );
   }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../models/offers.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({

@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wds_first_app/common/app_preferences.dart';
 
 import '../widgets/login/login_form.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({super.key});
+
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  @override
+  void initState() {
+    super.initState();
+    _checkToken();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,5 +49,15 @@ class Login extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _checkToken() async {
+    String? token = await AppPreferences.getToken();
+
+    if (token != null) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go('/');
+      });
+    }
   }
 }

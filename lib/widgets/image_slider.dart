@@ -5,10 +5,12 @@ class ImageSlider extends StatefulWidget {
     super.key,
     required this.images,
     this.dotsBottom = 20,
+    this.fit = 'contain',
   });
 
   final List<dynamic> images;
   final double dotsBottom;
+  final String fit;
 
   @override
   State createState() => _ImageSliderState();
@@ -40,7 +42,7 @@ class _ImageSliderState extends State<ImageSlider> {
             itemBuilder: (context, index) {
               return Image.network(
                 widget.images[index],
-                fit: BoxFit.cover,
+                fit: widget.fit == 'cover' ? BoxFit.cover : BoxFit.contain,
               );
             },
           ),

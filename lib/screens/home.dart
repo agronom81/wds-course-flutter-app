@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wds_first_app/common/app_preferences.dart';
 
 import '../api/server_api.dart';
 import '../widgets/empty.dart';
 import '../widgets/home/home_categories.dart';
 import '../widgets/home/home_products.dart';
 import '../widgets/home/home_slider.dart';
+import '../widgets/loader.dart';
 import '../widgets/search_field.dart';
 
 class Home extends StatefulWidget {
@@ -35,9 +37,7 @@ class _HomeState extends State<Home> {
         foregroundColor: Colors.white,
       ),
       body: isLoading
-          ? const Center(
-              child: Text('Loading...'),
-            )
+          ? const Loader()
           : HomeContent(
               data: data,
             ),
@@ -52,6 +52,7 @@ class _HomeState extends State<Home> {
           isLoading = false;
         });
       } else {
+        AppPreferences.removeToken();
         context.go('/');
       }
     });

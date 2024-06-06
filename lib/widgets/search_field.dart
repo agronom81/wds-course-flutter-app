@@ -1,29 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wds_first_app/common/utils.dart';
 
-class SearchField extends StatelessWidget {
+import '../api/server_api.dart';
+
+class SearchField extends StatefulWidget {
   const SearchField({super.key});
 
-  static const List<String> _kOptions = <String>[
-    'apple',
-    'banana',
-    'orange',
-    'mango',
-    'grapes',
-    'watermelon',
-    'kiwi',
-    'strawberry',
-    'sugarcane',
+  @override
+  State<SearchField> createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
+  ServerApi api = ServerApi();
+  late List<Map<String, dynamic>> options = [
+    {'id': 0, 'name': ''}
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Autocomplete<String>(
+    return Autocomplete<Map<String, dynamic>>(
       optionsBuilder: (TextEditingValue textEditingValue) {
         if (textEditingValue.text == '') {
-          return const Iterable<String>.empty();
+          return const Iterable<Map<String, dynamic>>.empty();
         }
-        return _kOptions.where((String option) {
-          return option.contains(textEditingValue.text.toLowerCase());
+        return options.where((Map<String, dynamic> option) {
+          return option['name']
+              .toLowerCase()
+              .contains(textEditingValue.text.toLowerCase());
         });
       },
       fieldViewBuilder: (
@@ -64,7 +74,12 @@ class SearchField extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final option = options.elementAt(index);
               return InkWell(
-                child: Text(option),
+                child: Text(
+                  option['name'],
+                  style: const TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
                 onTap: () {
                   onSelected(option);
                 },
@@ -79,10 +94,31 @@ class SearchField extends StatelessWidget {
           ),
         );
       }),
-      onSelected: (String selection) {
-        debugPrint(selection);
+      onSelected: (Map<String, dynamic> selection) {
+        dynamic id = selection['id'];
+        context.push('/product/$id');
       },
-      displayStringForOption: ((option) => option),
+      displayStringForOption: ((option) => option['name']),
     );
+  }
+
+  void _getData() {
+    api.getProducts().then((value) {
+      if (value.code >= 200 && value.code < 300 && value.status) {
+        List<Map<String, dynamic>> productOptions = [];
+        dynamic products = getValue(value.data, 'products');
+        if (products != null && products.length > 0) {
+          for (dynamic product in products) {
+            productOptions.add({
+              'id': product['id'],
+              'name': product['name'],
+            });
+          }
+          setState(() {
+            options = productOptions;
+          });
+        }
+      }
+    });
   }
 }

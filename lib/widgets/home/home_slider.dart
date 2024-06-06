@@ -27,6 +27,7 @@ class HomeSlider extends StatelessWidget {
       child: ImageSlider(
         images: images,
         dotsBottom: dotsBottom,
+        fit: 'cover',
       ),
     );
   }

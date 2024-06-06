@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:wds_first_app/widgets/accordion.dart';
 import 'package:wds_first_app/widgets/product/single_product.dart';
 
 import '../api/server_api.dart';
-import '../common/app_color.dart';
-import '../models/offers.dart';
 import '../widgets/custom_text.dart';
-import '../widgets/image_slider.dart';
-import '../widgets/primary_button.dart';
-import '../widgets/qty_counter.dart';
+import '../widgets/loader.dart';
 
 class Product extends StatefulWidget {
   const Product({
@@ -49,14 +43,7 @@ class _ProductState extends State<Product> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: isLoading
-            ? const Center(
-                child: Text('Loading...'),
-              )
-            : SingleProduct(product: data),
-      ),
+      body: isLoading ? const Loader() : SingleProduct(product: data),
     );
   }
 

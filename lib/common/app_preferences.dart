@@ -11,4 +11,9 @@ extension AppPreferences on SharedPreferences {
     final String? token = prefs.getString('token');
     return token;
   }
+
+  static removeToken() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+  }
 }

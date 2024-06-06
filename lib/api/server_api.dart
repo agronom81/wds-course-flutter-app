@@ -1,5 +1,3 @@
-import 'package:wds_first_app/common/app_preferences.dart';
-
 import 'http_api.dart';
 import 'http_server_response.dart';
 
@@ -29,5 +27,10 @@ class ServerApi {
   Future<HttpServerResponse> getProduct({required dynamic id}) async {
     Map<String, dynamic> data = {'id': id};
     return api.sendGet(path: '/product', data: data);
+  }
+
+  Future<HttpServerResponse> getProducts() async {
+    Map<String, dynamic> data = {};
+    return api.sendGet(path: '/products', data: data);
   }
 }
