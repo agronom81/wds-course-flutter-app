@@ -29,3 +29,19 @@ class Offer {
   final double price;
   final List<OfferDescription> description;
 }
+
+class ExclusiveOffer {
+  const ExclusiveOffer({
+    required this.id,
+    required this.name,
+    required this.short_description,
+    required this.preview_image,
+    required this.price,
+  });
+
+  final int id;
+  final String name;
+  final String short_description;
+  final String preview_image;
+  final String price;
+}

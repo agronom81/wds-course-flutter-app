@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+
+import '../category_card.dart';
+import '../section_title.dart';
+
+class HomeCategories extends StatelessWidget {
+  const HomeCategories({
+    super.key,
+    required this.categories,
+  });
+
+  final List<dynamic> categories;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SectionTitle(
+          title: 'Categories',
+          routeName: 'explore',
+        ),
+        SizedBox(
+          height: 105,
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.only(right: 25, left: 25),
+            separatorBuilder: (context, index) {
+              return const SizedBox(
+                height: 15,
+                width: 15,
+              );
+            },
+            itemCount: categories.length,
+            itemBuilder: (context, index) {
+              return CategoryCard(
+                category: categories[index],
+              );
+            },
+          ),
+        ),
+        const SizedBox(
+          height: 50,
+        ),
+      ],
+    );
+  }
+}

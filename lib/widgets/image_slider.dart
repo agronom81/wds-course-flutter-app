@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ImageSlider extends StatefulWidget {
-  const ImageSlider({super.key, required this.images});
+  const ImageSlider({
+    super.key,
+    required this.images,
+    this.dotsBottom = 20,
+    this.fit = 'contain',
+  });
 
-  final List<String> images;
+  final List<dynamic> images;
+  final double dotsBottom;
+  final String fit;
 
   @override
   State createState() => _ImageSliderState();
@@ -35,13 +42,13 @@ class _ImageSliderState extends State<ImageSlider> {
             itemBuilder: (context, index) {
               return Image.network(
                 widget.images[index],
-                fit: BoxFit.cover,
+                fit: widget.fit == 'cover' ? BoxFit.cover : BoxFit.contain,
               );
             },
           ),
         ),
         Positioned(
-          bottom: 20,
+          bottom: widget.dotsBottom,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: _buildPageIndicator(),

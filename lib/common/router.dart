@@ -49,8 +49,11 @@ final router = GoRouter(
       builder: (context, state) => const Login(),
     ),
     GoRoute(
-      path: '/product',
-      builder: (context, state) => const Product(),
+      path: '/product/:productId',
+      builder: (context, GoRouterState state) {
+        final dynamic id = state.pathParameters['productId']!;
+        return Product(id: id);
+      },
     ),
   ],
 );
