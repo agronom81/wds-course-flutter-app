@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../common/app_color.dart';
+import '../../models/product.dart';
 import '../accordion.dart';
 import '../image_slider.dart';
 import '../primary_button.dart';
@@ -12,7 +13,7 @@ class SingleProduct extends StatelessWidget {
     required this.product,
   });
 
-  final Map<String, dynamic> product;
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,7 @@ class SingleProduct extends StatelessWidget {
               ),
             ),
             child: ImageSlider(
-              images: product['images'],
+              images: product.images,
             ),
           ),
           Padding(
@@ -47,10 +48,10 @@ class SingleProduct extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          product['name'],
+                          product.name,
                         ),
                         Text(
-                          product['shortDescription'] ?? '',
+                          product.shortDescription,
                           style: const TextStyle(
                             color: AppColor.textColor,
                             fontSize: 16,
@@ -78,7 +79,7 @@ class SingleProduct extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     const QtyCounter(),
-                    Text('\$${product['price']}'),
+                    Text('\$${product.price}'),
                   ],
                 ),
                 const SizedBox(
@@ -90,7 +91,7 @@ class SingleProduct extends StatelessWidget {
                 Accordion(description: [
                   {
                     'title': 'Product Detail',
-                    'description': product['description']
+                    'description': product.description
                   }
                 ]),
                 Column(
@@ -116,11 +117,11 @@ class SingleProduct extends StatelessWidget {
     );
   }
 
-  _createNutrition(dynamic product) {
+  _createNutrition(Product product) {
     return [
       {
         'title': 'Nutritions',
-        'description': product['nutritions'],
+        'description': product.nutritions,
         'weight': '100gr',
       }
     ];

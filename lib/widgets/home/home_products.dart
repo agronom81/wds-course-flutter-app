@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/product_short.dart';
 import '../product_card.dart';
 import '../section_title.dart';
 
@@ -11,7 +12,8 @@ class HomeProducts extends StatelessWidget {
     required this.routeName,
   });
 
-  final List<dynamic> products;
+  // final List<dynamic> products;
+  final List<ProductShort> products;
   final String blockTitle;
   final String routeName;
 
@@ -55,7 +57,7 @@ class HomeProducts extends StatelessWidget {
             itemCount: products.length,
             itemBuilder: (context, index) {
               return ProductCard(
-                offer: products[index],
+                product: products[index],
                 action: addProduct,
               );
             },

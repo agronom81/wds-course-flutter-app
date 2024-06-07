@@ -51,7 +51,7 @@ final router = GoRouter(
     GoRoute(
       path: '/product/:productId',
       builder: (context, GoRouterState state) {
-        final dynamic id = state.pathParameters['productId']!;
+        final String id = state.pathParameters['productId']!;
         return Product(id: id);
       },
     ),

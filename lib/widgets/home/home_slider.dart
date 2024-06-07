@@ -9,7 +9,7 @@ class HomeSlider extends StatelessWidget {
     required this.dotsBottom,
   });
 
-  final List<dynamic> images;
+  final List<String> images;
   final double dotsBottom;
 
   @override

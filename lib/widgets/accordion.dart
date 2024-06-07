@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wds_first_app/widgets/custom_text.dart';
 
 import '../common/app_color.dart';
+import 'custom_text.dart';
 
 class Item {
   Item({
@@ -40,7 +40,7 @@ class Accordion extends StatefulWidget {
     required this.description,
   });
 
-  final List<dynamic> description;
+  final dynamic description;
 
   @override
   State<Accordion> createState() => _AccordionState();

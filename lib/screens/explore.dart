@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wds_first_app/common/utils.dart';
 
 import '../api/server_api.dart';
 import '../widgets/custom_text.dart';
@@ -48,7 +49,7 @@ class _ExploreState extends State<Explore> {
             isLoading
                 ? const Loader()
                 : ExploreCategories(
-                    categories: data,
+                    categories: createCategory(data),
                   ),
             const SizedBox(
               height: 20,

@@ -8,7 +8,7 @@ class ImageSlider extends StatefulWidget {
     this.fit = 'contain',
   });
 
-  final List<dynamic> images;
+  final List<String> images;
   final double dotsBottom;
   final String fit;
 

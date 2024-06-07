@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../models/category.dart';
 import '../category_card.dart';
 import '../section_title.dart';
 
@@ -9,7 +10,7 @@ class HomeCategories extends StatelessWidget {
     required this.categories,
   });
 
-  final List<dynamic> categories;
+  final List<Category> categories;
 
   @override
   Widget build(BuildContext context) {

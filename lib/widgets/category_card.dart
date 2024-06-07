@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../common/color_apis.dart';
-import '../models/categories.dart';
+import '../models/category.dart';
 
 class CategoryCard extends StatelessWidget {
   const CategoryCard({
@@ -9,7 +9,7 @@ class CategoryCard extends StatelessWidget {
     required this.category,
   });
 
-  final dynamic category;
+  final Category category;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class CategoryCard extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(18),
-          color: HexColor.fromHex(category['color']),
+          color: HexColor.fromHex(category.color),
         ),
         child: Row(
           children: [
@@ -29,7 +29,7 @@ class CategoryCard extends StatelessWidget {
               height: 70,
               width: 70,
               child: Image.network(
-                category['icon'] ?? '',
+                category.icon,
                 fit: BoxFit.contain,
               ),
             ),
@@ -38,7 +38,7 @@ class CategoryCard extends StatelessWidget {
             ),
             Expanded(
               child: Text(
-                category['name'].replaceAll('&amp;', '&'),
+                category.name.replaceAll('&amp;', '&'),
                 style: const TextStyle(
                   color: Color.fromRGBO(62, 66, 63, 1.0),
                   fontSize: 20,

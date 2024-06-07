@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../models/product_short.dart';
+
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
-    required this.offer,
+    required this.product,
     required this.action,
   });
 
-  final dynamic offer;
+  final ProductShort product;
   final void Function(dynamic value) action;
 
   @override
@@ -25,7 +27,7 @@ class ProductCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          dynamic id = offer['id'];
+          String id = product.id.toString();
           context.push('/product/$id');
         },
         child: Padding(
@@ -39,7 +41,7 @@ class ProductCard extends StatelessWidget {
                   height: 80,
                   width: 100,
                   child: Image.network(
-                    offer['preview_image'],
+                    product.preview_image,
                     fit: BoxFit.contain,
                   ),
                 ),
@@ -51,7 +53,7 @@ class ProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    offer['name'],
+                    product.name,
                     style: const TextStyle(
                       color: Color.fromRGBO(24, 23, 37, 1.0),
                       fontSize: 16,
@@ -61,7 +63,7 @@ class ProductCard extends StatelessWidget {
                     maxLines: 2,
                   ),
                   Text(
-                    offer['short_description'],
+                    product.short_description,
                     style: const TextStyle(
                       color: Color.fromRGBO(124, 124, 124, 1.0),
                       fontSize: 14,
@@ -74,7 +76,7 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '\$${offer['price']}',
+                    '\$${product.price}',
                     style: const TextStyle(
                       color: Color.fromRGBO(24, 23, 37, 1.0),
                       fontSize: 18,
@@ -83,7 +85,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      action('${offer['id']} - ${offer['price']}');
+                      action('${product.id} - ${product.price}');
                     },
                     borderRadius: BorderRadius.circular(17),
                     splashColor: Colors.yellow,

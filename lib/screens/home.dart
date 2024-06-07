@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wds_first_app/common/app_preferences.dart';
 
 import '../api/server_api.dart';
+import '../common/app_preferences.dart';
+import '../common/utils.dart';
 import '../widgets/empty.dart';
 import '../widgets/home/home_categories.dart';
 import '../widgets/home/home_products.dart';
@@ -86,26 +87,28 @@ class HomeContent extends StatelessWidget {
           ),
           data['slider'] != null && data['slider'].length > 0
               ? HomeSlider(
-                  images: data['slider'],
+                  images: data['slider'].cast<String>(),
                   dotsBottom: 8,
                 )
               : const Empty(),
           data['exclusive'] != null && data['exclusive'].length > 0
               ? HomeProducts(
-                  products: data['exclusive'],
+                  products: createProductShort(data['exclusive']),
                   routeName: 'explore',
                   blockTitle: 'Exclusive Offer',
                 )
               : const Empty(),
           data['best'] != null && data['best'].length > 0
               ? HomeProducts(
-                  products: data['best'],
+                  products: createProductShort(data['best']),
                   routeName: 'explore',
                   blockTitle: 'Best Selling',
                 )
               : const Empty(),
           data['category'] != null && data['category'].length > 0
-              ? HomeCategories(categories: data['category'])
+              ? HomeCategories(
+                  categories: createCategory(data['category']),
+                )
               : const Empty(),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wds_first_app/common/utils.dart';
 import 'package:wds_first_app/widgets/product/single_product.dart';
 
 import '../api/server_api.dart';
@@ -10,7 +11,7 @@ class Product extends StatefulWidget {
     super.key,
     required this.id,
   });
-  final dynamic id;
+  final String id;
 
   @override
   State<Product> createState() => _ProductState();
@@ -43,7 +44,9 @@ class _ProductState extends State<Product> {
           ),
         ],
       ),
-      body: isLoading ? const Loader() : SingleProduct(product: data),
+      body: isLoading
+          ? const Loader()
+          : SingleProduct(product: createProduct(data)),
     );
   }
 
