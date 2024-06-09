@@ -11,7 +11,7 @@ class ProductCard extends StatelessWidget {
   });
 
   final ProductShort product;
-  final void Function(dynamic value) action;
+  final void Function(ProductShort value) action;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +85,7 @@ class ProductCard extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      action('${product.id} - ${product.price}');
+                      action(product);
                     },
                     borderRadius: BorderRadius.circular(17),
                     splashColor: Colors.yellow,

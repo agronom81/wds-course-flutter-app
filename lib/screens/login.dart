@@ -56,7 +56,7 @@ class _LoginState extends State<Login> {
 
     if (token != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.go('/');
+        context.go('/shop');
       });
     }
   }

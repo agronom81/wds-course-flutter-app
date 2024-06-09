@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../data/cart/cart_data.dart';
 import '../../models/product_short.dart';
 import '../product_card.dart';
 import '../section_title.dart';
@@ -12,29 +13,28 @@ class HomeProducts extends StatelessWidget {
     required this.routeName,
   });
 
-  // final List<dynamic> products;
   final List<ProductShort> products;
   final String blockTitle;
   final String routeName;
 
   @override
   Widget build(BuildContext context) {
-    void addProduct(value) {
-      showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('Alert'),
-              content: Text(value),
-              actions: [
-                FilledButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text('Ok'))
-              ],
-            );
-          });
+    void addProduct(ProductShort product) {
+      CartData.get(context).addProduct(product);
+      // showDialog(
+      //     context: context,
+      //     builder: (context) {
+      //       return AlertDialog(
+      //         content: Text('${product.name} added to cart'),
+      //         actions: [
+      //           FilledButton(
+      //               onPressed: () {
+      //                 Navigator.of(context).pop();
+      //               },
+      //               child: const Text('Ok'))
+      //         ],
+      //       );
+      //     });
     }
 
     return Column(

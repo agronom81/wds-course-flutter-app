@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../data/favourite/favourite_data.dart';
+import '../widgets/favourite/favourite_products.dart';
+import '../widgets/screen_title.dart';
+
 class Favourite extends StatelessWidget {
   const Favourite({super.key});
 
   @override
   Widget build(BuildContext context) {
+    FavouriteData data = FavouriteData.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Favourite',
-          textAlign: TextAlign.center,
+        centerTitle: true,
+        title: const ScreenTitle(
+          title: 'Favourite',
         ),
       ),
-      body: const Center(
-        child: Text('Favourite'),
-      ),
+      body: FavouriteProducts(products: data.products.values.toList()),
     );
   }
 }

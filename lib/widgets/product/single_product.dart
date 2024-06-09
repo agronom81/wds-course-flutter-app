@@ -6,6 +6,7 @@ import '../accordion.dart';
 import '../image_slider.dart';
 import '../primary_button.dart';
 import '../qty_counter.dart';
+import 'favourite_button.dart';
 
 class SingleProduct extends StatelessWidget {
   const SingleProduct({
@@ -60,15 +61,8 @@ class SingleProduct extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.favorite_border,
-                        ),
-                      ),
+                    FavouriteButton(
+                      product: product,
                     ),
                   ],
                 ),

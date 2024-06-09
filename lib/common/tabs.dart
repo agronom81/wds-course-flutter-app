@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../widgets/cart_counter.dart';
+import '../widgets/empty.dart';
+
 class Tabs extends StatefulWidget {
   final Widget child;
 
@@ -66,27 +69,36 @@ class _TabsState extends State<Tabs> {
                 onTap: () {
                   _goTo(icon['route']);
                 },
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      icon['icon'],
-                      width: 24,
-                      height: 24,
-                      colorFilter: ColorFilter.mode(
-                        _getActiveColor(icon['route']),
-                        BlendMode.srcIn,
-                      ),
+                child: Stack(children: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 3, left: 3),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          icon['icon'],
+                          width: 24,
+                          height: 24,
+                          colorFilter: ColorFilter.mode(
+                            _getActiveColor(icon['route']),
+                            BlendMode.srcIn,
+                          ),
+                        ),
+                        Text(
+                          icon['label'],
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: _getActiveColor(icon['route']),
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      icon['label'],
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: _getActiveColor(icon['route']),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                  icon['route'] == 'cart'
+                      ? const Positioned(
+                          top: 22, right: 0, child: CartCounter())
+                      : const Empty(),
+                ]),
               ),
           ],
         ),

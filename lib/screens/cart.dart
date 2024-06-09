@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../data/cart/cart_data.dart';
+
 class Cart extends StatelessWidget {
   const Cart({super.key});
 
@@ -12,8 +14,13 @@ class Cart extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ),
-      body: const Center(
-        child: Text('Cart'),
+      body: Center(
+        child: FilledButton(
+          onPressed: () {
+            CartData.get(context).clear();
+          },
+          child: const Text("Clear"),
+        ),
       ),
     );
   }
