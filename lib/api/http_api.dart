@@ -65,10 +65,11 @@ class HttpApi {
   _mapSuccess(Response response) {
     dynamic data = response.data ?? '';
     return HttpServerResponse(
-        code: response.statusCode ?? 200,
-        message: 'Success',
-        data: getValue(data, 'data'),
-        status: getValue(data, 'status') ?? false);
+      code: response.statusCode ?? 200,
+      message: 'Success',
+      data: getValue(data, 'data'),
+      status: getValue(data, 'status') ?? false,
+    );
   }
 
   _mapError(DioException e) {

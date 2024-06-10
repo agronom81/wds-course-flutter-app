@@ -1,3 +1,5 @@
+import 'package:flutter/src/widgets/basic.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wds_first_app/screens/app/auth_app.dart';
 
@@ -6,7 +8,8 @@ import '../screens/cart.dart';
 import '../screens/explore.dart';
 import '../screens/favourite.dart';
 import '../screens/home.dart';
-import '../screens/login.dart';
+import '../screens/login/bloc/login_bloc.dart';
+import '../screens/login/login.dart';
 import '../screens/product.dart';
 import 'tabs.dart';
 
@@ -15,7 +18,10 @@ final router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const Login(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => LoginBloc(),
+        child: const Login(),
+      ),
     ),
     ShellRoute(
         builder: (context, state, child) => AuthApp(child: child),

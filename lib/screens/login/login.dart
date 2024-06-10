@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wds_first_app/common/app_preferences.dart';
 
-import '../widgets/login/login_form.dart';
+import '../../widgets/login/login_form.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

@@ -4,9 +4,10 @@ class HttpServerResponse {
   dynamic data;
   bool status;
 
-  HttpServerResponse(
-      {required this.code,
-      required this.message,
-      required this.data,
-      required this.status});
+  HttpServerResponse({
+    required this.code,
+    required this.message,
+    required this.data,
+    required this.status,
+  });
 }

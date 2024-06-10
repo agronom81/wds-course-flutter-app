@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../common/app_preferences.dart';
 
 class Account extends StatelessWidget {
   const Account({super.key});
@@ -12,8 +15,14 @@ class Account extends StatelessWidget {
           textAlign: TextAlign.center,
         ),
       ),
-      body: const Center(
-        child: Text('Account'),
+      body: Center(
+        child: TextButton(
+          onPressed: () {
+            AppPreferences.removeToken();
+            context.go('/');
+          },
+          child: const Text('Logout'),
+        ),
       ),
     );
   }
