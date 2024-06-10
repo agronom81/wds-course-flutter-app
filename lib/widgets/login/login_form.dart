@@ -30,9 +30,8 @@ class _LoginFormState extends State<LoginForm> {
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        // TODO: implement listener
         if (state is LoginStateSuccess) {
-          context.goNamed('home');
+          context.goNamed('shop');
         }
       },
       child: Padding(
@@ -58,6 +57,29 @@ class _LoginFormState extends State<LoginForm> {
               const SizedBox(
                 height: 40,
               ),
+              BlocBuilder<LoginBloc, LoginState>(
+                  buildWhen: (previous, current) {
+                if (previous is LoginStateError &&
+                        current is! LoginStateError ||
+                    previous is! LoginStateError &&
+                        current is LoginStateError) {
+                  return true;
+                }
+                return false;
+              }, builder: (context, state) {
+                if (state is LoginStateError) {
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Text(state.message,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.red,
+                        )),
+                  );
+                }
+                return const Empty();
+              }),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -100,29 +122,6 @@ class _LoginFormState extends State<LoginForm> {
               const SizedBox(
                 height: 25,
               ),
-              BlocBuilder<LoginBloc, LoginState>(
-                  buildWhen: (previous, current) {
-                if (previous is LoginStateError &&
-                        current is! LoginStateError ||
-                    previous is! LoginStateError &&
-                        current is LoginStateError) {
-                  return true;
-                }
-                return false;
-              }, builder: (context, state) {
-                if (state is LoginStateError) {
-                  return Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Text(state.message,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.red,
-                        )),
-                  );
-                }
-                return const Empty();
-              }),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -185,9 +184,23 @@ class _LoginFormState extends State<LoginForm> {
                   ),
                 ),
               ),
-              PrimaryButton(
-                title: 'Log In',
-                action: _login,
+              Builder(
+                builder: (BuildContext context) {
+                  var bloc = context.watch<LoginBloc>();
+                  if (bloc.state is LoginStateLoading) {
+                    return const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+
+                  return PrimaryButton(
+                    title: 'Log In',
+                    action: _login,
+                  );
+                },
               ),
               const SizedBox(
                 height: 25,

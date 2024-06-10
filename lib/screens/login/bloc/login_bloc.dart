@@ -8,17 +8,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ServerApi api = ServerApi();
 
   LoginBloc() : super(LoginState()) {
-    on<LoginEmailEvent>((event, emit) {
+    on<LoginEmailEvent>((event, emit) async {
       emit(LoginStateLoading());
-      api.login(login: event.login, password: event.pass).then((value) {
-        if (value.code >= 200 && value.code < 300 && value.status) {
-          String token = getValue(value.data, 'token');
-          AppPreferences.setToken(token);
-          emit(LoginStateSuccess(token));
-        } else {
-          emit(LoginStateError(value.message));
-        }
-      });
+
+      var result = await api.login(login: event.login, password: event.pass);
+      if (result.status) {
+        String token = getValue(result.data, 'token');
+        AppPreferences.setToken(token);
+        emit(LoginStateSuccess(token));
+      } else {
+        emit(LoginStateError(result.message));
+      }
     });
   }
 }

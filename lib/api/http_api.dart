@@ -17,7 +17,11 @@ class HttpApi {
       InterceptorsWrapper(
         onRequest: (options, handler) async {
           String? token = await AppPreferences.getToken() ?? '';
-          options.headers['Authorization'] = 'Bearer $token';
+
+          if (token != '') {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+
           return handler.next(options);
         },
         onResponse: (response, handler) {
