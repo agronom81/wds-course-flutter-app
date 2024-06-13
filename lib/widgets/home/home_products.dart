@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/cart/cart_data.dart';
 import '../../models/product_short.dart';
+import '../../screens/cart/bloc/cart_bloc.dart';
+import '../../screens/cart/bloc/cart_event.dart';
 import '../product_card.dart';
 import '../section_title.dart';
 
@@ -19,22 +21,8 @@ class HomeProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    void addProduct(ProductShort product) {
-      CartData.get(context).addProduct(product);
-      // showDialog(
-      //     context: context,
-      //     builder: (context) {
-      //       return AlertDialog(
-      //         content: Text('${product.name} added to cart'),
-      //         actions: [
-      //           FilledButton(
-      //               onPressed: () {
-      //                 Navigator.of(context).pop();
-      //               },
-      //               child: const Text('Ok'))
-      //         ],
-      //       );
-      //     });
+    void addProduct(ProductShort product) async {
+      context.read<CartBloc>().add(CartAddEvent(product: product));
     }
 
     return Column(

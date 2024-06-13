@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wds_first_app/common/utils.dart';
 
 import '../api/server_api.dart';
+import '../common/utils.dart';
 
 class SearchField extends StatefulWidget {
   const SearchField({super.key});
@@ -104,7 +104,7 @@ class _SearchFieldState extends State<SearchField> {
 
   void _getData() {
     api.getProducts().then((value) {
-      if (value.code >= 200 && value.code < 300 && value.status) {
+      if (value.isSuccess) {
         List<Map<String, dynamic>> productOptions = [];
         dynamic products = getValue(value.data, 'products');
         if (products != null && products.length > 0) {

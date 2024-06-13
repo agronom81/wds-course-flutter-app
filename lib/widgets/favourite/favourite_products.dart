@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../models/favourite_product.dart';
+import '../../models/product_short.dart';
+import '../../screens/cart/bloc/cart_bloc.dart';
+import '../../screens/cart/bloc/cart_event.dart';
+import '../../screens/favourite/bloc/favourite_cubit.dart';
 import '../primary_button.dart';
 import 'favourite_product_card.dart';
 
@@ -65,7 +71,19 @@ class FavouriteProducts extends StatelessWidget {
             ),
             child: PrimaryButton(
               title: 'Add All To Cart',
-              action: () {},
+              action: () {
+                List<ProductShort> productShortList = products
+                    .map((favouriteProduct) => favouriteProduct.product)
+                    .toList();
+
+                context.read<CartBloc>().add(
+                      CartAddFavouritesEvent(
+                        products: productShortList,
+                      ),
+                    );
+                context.read<FavouriteCubit>().onClear();
+                context.goNamed('cart');
+              },
             ),
           ),
         ],

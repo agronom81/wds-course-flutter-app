@@ -2,6 +2,14 @@ import 'http_api.dart';
 import 'http_server_response.dart';
 
 class ServerApi {
+  static final ServerApi _instance = ServerApi._internal();
+
+  factory ServerApi() {
+    return _instance;
+  }
+
+  ServerApi._internal();
+
   HttpApi api =
       HttpApi(server: 'https://it-flutter.wdscode.guru/wp-json/flutter/v1');
 

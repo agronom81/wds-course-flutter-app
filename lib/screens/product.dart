@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:wds_first_app/common/utils.dart';
-import 'package:wds_first_app/widgets/product/single_product.dart';
 
 import '../api/server_api.dart';
+import '../common/utils.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/loader.dart';
+import '../widgets/product/single_product.dart';
 
 class Product extends StatefulWidget {
   const Product({
@@ -52,7 +52,7 @@ class _ProductState extends State<Product> {
 
   void _getData(dynamic id) {
     api.getProduct(id: id).then((value) {
-      if (value.code >= 200 && value.code < 300 && value.status) {
+      if (value.isSuccess) {
         setState(() {
           data = value.data;
           isLoading = false;

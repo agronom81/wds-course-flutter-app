@@ -1,11 +1,12 @@
 import 'package:dio/dio.dart';
 
-import '../common/app_preferences.dart';
+import '../common/app_settings.dart';
 import '../common/utils.dart';
 import 'http_server_response.dart';
 
 class HttpApi {
   late Dio dio;
+  final AppSettings settings = AppSettings();
 
   HttpApi({required String server}) {
     dio = Dio(
@@ -16,7 +17,7 @@ class HttpApi {
     dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          String? token = await AppPreferences.getToken() ?? '';
+          String? token = await settings.getToken() ?? '';
 
           if (token != '') {
             options.headers['Authorization'] = 'Bearer $token';
@@ -68,12 +69,16 @@ class HttpApi {
 
   _mapSuccess(Response response) {
     dynamic data = response.data ?? '';
+
+    int code = response.statusCode ?? 200;
+    bool status = getValue(data, 'status') ?? false;
+    bool success = code >= 200 && code < 300 && status;
+
     return HttpServerResponse(
-      code: response.statusCode ?? 200,
-      message: 'Success',
-      data: getValue(data, 'data'),
-      status: getValue(data, 'status') ?? false,
-    );
+        code: code,
+        message: getValue(data, 'message') ?? 'Success',
+        data: getValue(data, 'data'),
+        isSuccess: success);
   }
 
   _mapError(DioException e) {
@@ -83,6 +88,6 @@ class HttpApi {
         code: e.response?.statusCode ?? -1,
         message: getValue(data, 'message') ?? message,
         data: e.response?.data ?? '',
-        status: getValue(data, 'status') ?? false);
+        isSuccess: false);
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../common/app_preferences.dart';
+import 'login/bloc/login_cubit.dart';
 
 class Account extends StatelessWidget {
   const Account({super.key});
@@ -16,14 +17,18 @@ class Account extends StatelessWidget {
         ),
       ),
       body: Center(
-        child: TextButton(
+        child: FilledButton(
           onPressed: () {
-            AppPreferences.removeToken();
-            context.go('/');
+            _logout(context);
           },
           child: const Text('Logout'),
         ),
       ),
     );
+  }
+
+  _logout(BuildContext context) {
+    context.read<LoginCubit>().logout();
+    context.go('/');
   }
 }

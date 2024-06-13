@@ -2,12 +2,12 @@ class HttpServerResponse {
   int code;
   String message;
   dynamic data;
-  bool status;
+  bool isSuccess;
 
   HttpServerResponse({
     required this.code,
     required this.message,
     required this.data,
-    required this.status,
+    required this.isSuccess,
   });
 }

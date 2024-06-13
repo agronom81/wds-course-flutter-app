@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/favourite/favourite_data.dart';
 import '../../models/product.dart';
+import '../../screens/favourite/bloc/favourite_cubit.dart';
 
 class FavouriteButton extends StatelessWidget {
   const FavouriteButton({
@@ -12,7 +13,7 @@ class FavouriteButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FavouriteData data = FavouriteData.of(context);
+    var state = context.watch<FavouriteCubit>().state;
     String key = product.id.toString();
 
     return Padding(
@@ -20,11 +21,11 @@ class FavouriteButton extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: () {
-          FavouriteData.get(context).addProduct(product);
+          context.read<FavouriteCubit>().onAddProduct(product);
         },
         child: Icon(
-          color: data.products.containsKey(key) ? Colors.red : Colors.black,
-          data.products.containsKey(key)
+          color: state.products.containsKey(key) ? Colors.red : Colors.black,
+          state.products.containsKey(key)
               ? Icons.favorite_sharp
               : Icons.favorite_border,
         ),

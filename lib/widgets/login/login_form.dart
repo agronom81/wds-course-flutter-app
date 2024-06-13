@@ -3,9 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/app_color.dart';
-import '../../screens/login/bloc/login_bloc.dart';
+import '../../screens/login/bloc/login_cubit.dart';
 import '../custom_text.dart';
-import '../empty.dart';
 import '../primary_button.dart';
 
 class LoginForm extends StatefulWidget {
@@ -24,213 +23,199 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
+    email = TextEditingController(text: 'api_1@mail.com');
+    password = TextEditingController(text: 'Test12345!');
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
-        if (state is LoginStateSuccess) {
+        if (state.isSuccess) {
           context.goNamed('shop');
+          return;
+        }
+
+        if (!state.isSuccess && !state.isLoading) {
+          _showDialog(state.message);
         }
       },
-      child: Padding(
-        padding: const EdgeInsets.all(25.0),
-        child: Form(
-          key: loginForm,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const CustomText(
-                text: 'Logging',
-                fontSize: 26,
-                fontWeight: FontWeight.w600,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const CustomText(
-                text: 'Enter your emails and password',
-                color: AppColor.textColor,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
-              BlocBuilder<LoginBloc, LoginState>(
-                  buildWhen: (previous, current) {
-                if (previous is LoginStateError &&
-                        current is! LoginStateError ||
-                    previous is! LoginStateError &&
-                        current is LoginStateError) {
-                  return true;
-                }
-                return false;
-              }, builder: (context, state) {
-                if (state is LoginStateError) {
-                  return Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Text(state.message,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.red,
-                        )),
-                  );
-                }
-                return const Empty();
-              }),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CustomText(
-                    text: 'Email',
-                    color: AppColor.textColor,
-                  ),
-                  TextFormField(
-                    controller: email,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(24, 23, 37, 1),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+      builder: (BuildContext context, LoginState state) {
+        return Padding(
+          padding: const EdgeInsets.all(25.0),
+          child: Form(
+            key: loginForm,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const CustomText(
+                  text: 'Logging',
+                  fontSize: 26,
+                  fontWeight: FontWeight.w600,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const CustomText(
+                  text: 'Enter your emails and password',
+                  color: AppColor.textColor,
+                ),
+                const SizedBox(
+                  height: 40,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CustomText(
+                      text: 'Email',
+                      color: AppColor.textColor,
                     ),
-                    decoration: const InputDecoration(
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromRGBO(226, 226, 226, 1),
-                          width: 1.0,
+                    TextFormField(
+                      controller: email,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(24, 23, 37, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      decoration: const InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(226, 226, 226, 1),
+                            width: 1.0,
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(226, 226, 226, 1),
+                            width: 1.0,
+                          ),
                         ),
                       ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromRGBO(226, 226, 226, 1),
-                          width: 1.0,
-                        ),
-                      ),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (value) {
+                        if (_validateEmail(value)) {
+                          return 'Enter a valid email address';
+                        }
+                        return null;
+                      },
                     ),
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (_validateEmail(value)) {
-                        return 'Enter a valid email address';
-                      }
-                      return null;
-                    },
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CustomText(
-                    text: 'Password',
-                    color: AppColor.textColor,
-                  ),
-                  TextFormField(
-                    controller: password,
-                    style: const TextStyle(
-                      color: Color.fromRGBO(24, 23, 37, 1),
-                      fontSize: 18,
-                      fontWeight: FontWeight.w500,
+                  ],
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CustomText(
+                      text: 'Password',
+                      color: AppColor.textColor,
                     ),
-                    textInputAction: TextInputAction.done,
-                    obscureText: _hideText,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Field is empty';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromRGBO(226, 226, 226, 1),
-                          width: 1.0,
-                        ),
+                    TextFormField(
+                      controller: password,
+                      style: const TextStyle(
+                        color: Color.fromRGBO(24, 23, 37, 1),
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
                       ),
-                      focusedBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(
-                          color: Color.fromRGBO(226, 226, 226, 1),
-                          width: 1.0,
+                      textInputAction: TextInputAction.done,
+                      obscureText: _hideText,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Field is empty';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(
+                        enabledBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(226, 226, 226, 1),
+                            width: 1.0,
+                          ),
                         ),
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
-                        child: GestureDetector(
-                          onTap: _toggleHide,
-                          child: Icon(
-                            !_hideText
-                                ? Icons.visibility_rounded
-                                : Icons.visibility_off_rounded,
-                            size: 24,
+                        focusedBorder: const UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color.fromRGBO(226, 226, 226, 1),
+                            width: 1.0,
+                          ),
+                        ),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+                          child: GestureDetector(
+                            onTap: _toggleHide,
+                            child: Icon(
+                              !_hideText
+                                  ? Icons.visibility_rounded
+                                  : Icons.visibility_off_rounded,
+                              size: 24,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 20, bottom: 30),
-                alignment: Alignment.centerRight,
-                child: InkWell(
-                  onTap: () {},
-                  child: const CustomText(
-                    text: 'Forgot Password',
-                    fontSize: 14,
-                  ),
+                  ],
                 ),
-              ),
-              Builder(
-                builder: (BuildContext context) {
-                  var bloc = context.watch<LoginBloc>();
-                  if (bloc.state is LoginStateLoading) {
-                    return const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(12.0),
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-
-                  return PrimaryButton(
-                    title: 'Log In',
-                    action: _login,
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const CustomText(
-                      text: 'Don\'t have an account?',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 14),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  InkWell(
+                Container(
+                  padding: const EdgeInsets.only(top: 20, bottom: 30),
+                  alignment: Alignment.centerRight,
+                  child: InkWell(
                     onTap: () {},
                     child: const CustomText(
-                      text: 'Signup',
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromRGBO(83, 177, 117, 1),
+                      text: 'Forgot Password',
                       fontSize: 14,
                     ),
                   ),
-                ],
-              )
-            ],
+                ),
+                Builder(
+                  builder: (BuildContext context) {
+                    var loginState = context.watch<LoginCubit>().state;
+                    if (loginState.isLoading) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(12.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+
+                    return PrimaryButton(
+                      title: 'Log In',
+                      action: _login,
+                    );
+                  },
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const CustomText(
+                        text: 'Don\'t have an account?',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: const CustomText(
+                        text: 'Signup',
+                        fontWeight: FontWeight.w600,
+                        color: Color.fromRGBO(83, 177, 117, 1),
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -245,10 +230,10 @@ class _LoginFormState extends State<LoginForm> {
       String emailValue = email.text;
       String passwordValue = password.text;
 
-      context.read<LoginBloc>().add(LoginEmailEvent(
+      context.read<LoginCubit>().login(
             login: emailValue,
-            pass: passwordValue,
-          ));
+            password: passwordValue,
+          );
     }
   }
 
@@ -263,5 +248,25 @@ class _LoginFormState extends State<LoginForm> {
     final regex = RegExp(pattern);
 
     return value!.isEmpty || !regex.hasMatch(value) ? true : false;
+  }
+
+  _showDialog(String message) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: CustomText(
+              text: message,
+            ),
+            actions: [
+              FilledButton(
+                  onPressed: () {
+                    context.pop();
+                  },
+                  child: const Text('Ok'))
+            ],
+          );
+        });
   }
 }

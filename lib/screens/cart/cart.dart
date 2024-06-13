@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/cart/cart_data.dart';
+import 'bloc/cart_bloc.dart';
+import 'bloc/cart_event.dart';
 
 class Cart extends StatelessWidget {
   const Cart({super.key});
@@ -17,7 +19,7 @@ class Cart extends StatelessWidget {
       body: Center(
         child: FilledButton(
           onPressed: () {
-            CartData.get(context).clear();
+            context.read<CartBloc>().add(CartClearEvent());
           },
           child: const Text("Clear"),
         ),

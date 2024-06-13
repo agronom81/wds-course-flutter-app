@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'api/server_api.dart';
+import 'common/app_settings.dart';
 import 'common/router.dart';
 import 'common/theme.dart';
 
@@ -13,10 +16,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Flutter Demo',
-      routerConfig: router,
-      theme: theme,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (_) => ServerApi()),
+        RepositoryProvider(create: (_) => AppSettings()),
+      ],
+      child: MaterialApp.router(
+        title: 'Flutter Demo',
+        routerConfig: router,
+        theme: theme,
+      ),
     );
   }
 }

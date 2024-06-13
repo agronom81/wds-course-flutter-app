@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../data/favourite/favourite_data.dart';
-import '../widgets/favourite/favourite_products.dart';
-import '../widgets/screen_title.dart';
+import '../../widgets/favourite/favourite_products.dart';
+import '../../widgets/screen_title.dart';
+import 'bloc/favourite_cubit.dart';
 
 class Favourite extends StatelessWidget {
   const Favourite({super.key});
 
   @override
   Widget build(BuildContext context) {
-    FavouriteData data = FavouriteData.of(context);
+    var state = context.watch<FavouriteCubit>().state;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -17,7 +18,7 @@ class Favourite extends StatelessWidget {
           title: 'Favourite',
         ),
       ),
-      body: FavouriteProducts(products: data.products.values.toList()),
+      body: FavouriteProducts(products: state.products.values.toList()),
     );
   }
 }

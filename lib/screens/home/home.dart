@@ -1,59 +1,59 @@
+import 'package:bloc_presentation/bloc_presentation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wds_first_app/common/app_settings.dart';
+import 'package:wds_first_app/screens/home/bloc/home_cubit.dart';
 
-import '../api/server_api.dart';
-import '../common/app_preferences.dart';
-import '../common/utils.dart';
-import '../widgets/empty.dart';
-import '../widgets/home/home_categories.dart';
-import '../widgets/home/home_products.dart';
-import '../widgets/home/home_slider.dart';
-import '../widgets/loader.dart';
-import '../widgets/search_field.dart';
+import '../../common/utils.dart';
+import '../../widgets/empty.dart';
+import '../../widgets/home/home_categories.dart';
+import '../../widgets/home/home_products.dart';
+import '../../widgets/home/home_slider.dart';
+import '../../widgets/loader.dart';
+import '../../widgets/search_field.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  Home({super.key});
+
+  final AppSettings settings = AppSettings();
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  ServerApi api = ServerApi();
-  late dynamic data;
-  late bool isLoading = true;
-
   @override
   void initState() {
     super.initState();
-    _getData();
+    _loadData();
   }
 
   @override
   Widget build(BuildContext context) {
+    var homeState = context.watch<HomeCubit>().state;
+
     return Scaffold(
       appBar: AppBar(),
-      body: isLoading
+      body: homeState.isLoading && homeState.data.isEmpty
           ? const Loader()
-          : HomeContent(
-              data: data,
+          : BlocPresentationListener<HomeCubit, HomeEvent>(
+              listener: (context, event) {
+                if (event is HomeEventError) {
+                  widget.settings.removeToken();
+                  context.go('/');
+                }
+              },
+              child: HomeContent(
+                data: homeState.data,
+              ),
             ),
     );
   }
 
-  void _getData() {
-    api.getHome().then((value) {
-      if (value.code >= 200 && value.code < 300 && value.status) {
-        setState(() {
-          data = value.data;
-          isLoading = false;
-        });
-      } else {
-        AppPreferences.removeToken();
-        context.go('/');
-      }
-    });
+  _loadData() {
+    context.read<HomeCubit>().loadData();
   }
 }
 

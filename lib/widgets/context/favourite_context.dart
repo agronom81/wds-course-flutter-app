@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
-import '../../common/app_preferences.dart';
+import '../../common/app_settings.dart';
 import '../../data/favourite/favourite_data.dart';
 import '../../models/favourite_product.dart';
 import '../../models/product.dart';
 import '../../models/product_short.dart';
 
 class FavouriteContext extends StatefulWidget {
-  const FavouriteContext({
+  FavouriteContext({
     super.key,
     required this.child,
   });
 
   final Widget child;
+  final AppSettings settings = AppSettings();
 
   @override
   State<FavouriteContext> createState() => _FavouriteContextState();
@@ -57,7 +58,7 @@ class _FavouriteContextState extends State<FavouriteContext> {
       });
     }
 
-    AppPreferences.setFavourite(products);
+    widget.settings.setFavourite(products);
   }
 
   _onClear() {
@@ -68,7 +69,7 @@ class _FavouriteContextState extends State<FavouriteContext> {
 
   _getFavourite() async {
     Map<String, FavouriteProduct> newProducts =
-        await AppPreferences.getFavourite();
+        await widget.settings.getFavourite();
     setState(() {
       products = newProducts;
     });

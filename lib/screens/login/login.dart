@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wds_first_app/common/app_preferences.dart';
 
+import '../../common/app_settings.dart';
 import '../../widgets/login/login_form.dart';
 
 class Login extends StatefulWidget {
-  const Login({super.key});
+  Login({super.key});
+
+  final AppSettings settings = AppSettings();
 
   @override
   State<Login> createState() => _LoginState();
@@ -52,7 +54,7 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> _checkToken() async {
-    String? token = await AppPreferences.getToken();
+    String? token = await widget.settings.getToken();
 
     if (token != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {

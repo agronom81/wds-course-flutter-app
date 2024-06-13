@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:wds_first_app/common/utils.dart';
 
 import '../api/server_api.dart';
+import '../common/utils.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/explore/explore_categories.dart';
 import '../widgets/loader.dart';
@@ -62,7 +62,7 @@ class _ExploreState extends State<Explore> {
 
   void _getData() {
     api.getCategories().then((value) {
-      if (value.code >= 200 && value.code < 300 && value.status) {
+      if (value.isSuccess) {
         setState(() {
           data = value.data;
           isLoading = false;

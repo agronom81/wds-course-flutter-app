@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../common/app_color.dart';
 import '../../models/product.dart';
+import '../../models/product_short.dart';
+import '../../screens/cart/bloc/cart_bloc.dart';
+import '../../screens/cart/bloc/cart_event.dart';
 import '../accordion.dart';
 import '../image_slider.dart';
 import '../primary_button.dart';
 import '../qty_counter.dart';
 import 'favourite_button.dart';
 
-class SingleProduct extends StatelessWidget {
+class SingleProduct extends StatefulWidget {
   const SingleProduct({
     super.key,
     required this.product,
@@ -17,7 +22,26 @@ class SingleProduct extends StatelessWidget {
   final Product product;
 
   @override
+  State<SingleProduct> createState() => _SingleProductState();
+}
+
+class _SingleProductState extends State<SingleProduct> {
+  late int count;
+
+  @override
+  void initState() {
+    super.initState();
+    count = 1;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    void setCount(int value) {
+      setState(() {
+        count = value;
+      });
+    }
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -34,7 +58,7 @@ class SingleProduct extends StatelessWidget {
               ),
             ),
             child: ImageSlider(
-              images: product.images,
+              images: widget.product.images,
             ),
           ),
           Padding(
@@ -49,10 +73,10 @@ class SingleProduct extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          product.name,
+                          widget.product.name,
                         ),
                         Text(
-                          product.shortDescription,
+                          widget.product.shortDescription,
                           style: const TextStyle(
                             color: AppColor.textColor,
                             fontSize: 16,
@@ -62,7 +86,7 @@ class SingleProduct extends StatelessWidget {
                       ],
                     ),
                     FavouriteButton(
-                      product: product,
+                      product: widget.product,
                     ),
                   ],
                 ),
@@ -72,8 +96,10 @@ class SingleProduct extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const QtyCounter(),
-                    Text('\$${product.price}'),
+                    QtyCounter(
+                      setCount: setCount,
+                    ),
+                    Text('\$${widget.product.price}'),
                   ],
                 ),
                 const SizedBox(
@@ -85,12 +111,12 @@ class SingleProduct extends StatelessWidget {
                 Accordion(description: [
                   {
                     'title': 'Product Detail',
-                    'description': product.description
+                    'description': widget.product.description
                   }
                 ]),
                 Column(
                   children: [
-                    Accordion(description: _createNutrition(product)),
+                    Accordion(description: _createNutrition(widget.product)),
                     const Divider(
                       color: Color.fromRGBO(226, 226, 226, 0.7),
                     ),
@@ -101,7 +127,22 @@ class SingleProduct extends StatelessWidget {
                 ),
                 PrimaryButton(
                   title: 'Add To Basket',
-                  action: () {},
+                  action: () {
+                    context.read<CartBloc>().add(
+                          CartAddEvent(
+                            product: ProductShort(
+                              id: widget.product.id,
+                              name: widget.product.name,
+                              price: widget.product.price,
+                              short_description:
+                                  widget.product.shortDescription,
+                              preview_image: widget.product.preview_image,
+                            ),
+                            count: count,
+                          ),
+                        );
+                    context.goNamed('cart');
+                  },
                 ),
               ],
             ),

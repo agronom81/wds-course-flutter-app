@@ -1,20 +1,25 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/server_api.dart';
-import '../../../common/app_preferences.dart';
+import '../../../common/app_settings.dart';
 import '../../../common/utils.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  ServerApi api = ServerApi();
+  final ServerApi serverApi;
+  final AppSettings settings;
 
-  LoginBloc() : super(LoginState()) {
+  LoginBloc({
+    required this.serverApi,
+    required this.settings,
+  }) : super(LoginState()) {
     on<LoginEmailEvent>((event, emit) async {
       emit(LoginStateLoading());
 
-      var result = await api.login(login: event.login, password: event.pass);
-      if (result.status) {
+      var result =
+          await serverApi.login(login: event.login, password: event.pass);
+      if (result.isSuccess) {
         String token = getValue(result.data, 'token');
-        AppPreferences.setToken(token);
+        settings.setToken(token);
         emit(LoginStateSuccess(token));
       } else {
         emit(LoginStateError(result.message));
