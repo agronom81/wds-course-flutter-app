@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../data/app_path.dart';
 import '../../models/category.dart';
 import '../category_card.dart';
 import '../section_title.dart';
@@ -16,9 +17,9 @@ class HomeCategories extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SectionTitle(
+        SectionTitle(
           title: 'Categories',
-          routeName: 'explore',
+          routeName: AppPath.explore,
         ),
         SizedBox(
           height: 105,

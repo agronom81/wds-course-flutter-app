@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 
+import '../data/app_path.dart';
 import '../screens/account.dart';
 import '../screens/app/app.dart';
 import '../screens/app/auth_app.dart';
@@ -12,7 +13,7 @@ import '../screens/product.dart';
 import 'tabs.dart';
 
 final router = GoRouter(
-  initialLocation: '/',
+  initialLocation: AppPath.login,
   routes: [
     ShellRoute(
       builder: (context, state, child) => App(
@@ -20,14 +21,14 @@ final router = GoRouter(
       ),
       routes: [
         GoRoute(
-          path: '/',
+          path: AppPath.login,
           builder: (context, state) => Login(),
         ),
         ShellRoute(
             builder: (context, state, child) => AuthApp(child: child),
             routes: [
               GoRoute(
-                path: '/product/:productId',
+                path: AppPath.product,
                 builder: (context, GoRouterState state) {
                   final String id = state.pathParameters['productId']!;
                   return Product(id: id);
@@ -41,28 +42,23 @@ final router = GoRouter(
                   },
                   routes: [
                     GoRoute(
-                      path: '/shop',
-                      name: 'shop',
+                      path: AppPath.shop,
                       builder: (context, state) => Home(),
                     ),
                     GoRoute(
-                      path: '/explore',
-                      name: 'explore',
+                      path: AppPath.explore,
                       builder: (context, state) => const Explore(),
                     ),
                     GoRoute(
-                      path: '/cart',
-                      name: 'cart',
+                      path: AppPath.cart,
                       builder: (context, state) => const Cart(),
                     ),
                     GoRoute(
-                      path: '/favourite',
-                      name: 'favourite',
+                      path: AppPath.favourite,
                       builder: (context, state) => const Favourite(),
                     ),
                     GoRoute(
-                      path: '/account',
-                      name: 'account',
+                      path: AppPath.account,
                       builder: (context, state) => const Account(),
                     ),
                   ]),

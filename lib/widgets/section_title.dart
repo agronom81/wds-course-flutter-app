@@ -30,9 +30,8 @@ class SectionTitle extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  context.goNamed(
+                  context.go(
                     routeName,
-                    extra: 'Hello',
                   );
                 },
                 child: const Text(

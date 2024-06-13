@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/app_color.dart';
+import '../../data/app_path.dart';
 import '../../screens/login/bloc/login_cubit.dart';
 import '../custom_text.dart';
 import '../primary_button.dart';
@@ -23,8 +24,6 @@ class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
     super.initState();
-    email = TextEditingController(text: 'api_1@mail.com');
-    password = TextEditingController(text: 'Test12345!');
   }
 
   @override
@@ -32,7 +31,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.isSuccess) {
-          context.goNamed('shop');
+          context.go(AppPath.shop);
           return;
         }
 

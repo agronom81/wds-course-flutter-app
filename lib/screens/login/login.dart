@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/app_settings.dart';
+import '../../data/app_path.dart';
 import '../../widgets/login/login_form.dart';
 
 class Login extends StatefulWidget {
@@ -58,7 +59,7 @@ class _LoginState extends State<Login> {
 
     if (token != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.go('/shop');
+        context.go(AppPath.shop);
       });
     }
   }

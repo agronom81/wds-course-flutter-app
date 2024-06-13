@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../data/app_path.dart';
 import '../../models/favourite_product.dart';
 import '../../models/product_short.dart';
 import '../../screens/cart/bloc/cart_bloc.dart';
@@ -82,7 +83,7 @@ class FavouriteProducts extends StatelessWidget {
                       ),
                     );
                 context.read<FavouriteCubit>().onClear();
-                context.goNamed('cart');
+                context.go(AppPath.cart);
               },
             ),
           ),

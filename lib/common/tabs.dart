@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../data/app_path.dart';
 import '../widgets/cart_counter.dart';
 import '../widgets/empty.dart';
 
@@ -15,13 +16,17 @@ class Tabs extends StatefulWidget {
 }
 
 class _TabsState extends State<Tabs> {
-  String page = 'shop';
+  String page = AppPath.shop;
   final List<Map<String, dynamic>> _icons = [
-    {'icon': 'icons/shop.svg', 'label': 'Shop', 'route': 'shop'},
-    {'icon': 'icons/explore.svg', 'label': 'Explore', 'route': 'explore'},
-    {'icon': 'icons/cart.svg', 'label': 'Cart', 'route': 'cart'},
-    {'icon': 'icons/favourite.svg', 'label': 'Favourite', 'route': 'favourite'},
-    {'icon': 'icons/account.svg', 'label': 'Account', 'route': 'account'}
+    {'icon': 'icons/shop.svg', 'label': 'Shop', 'route': AppPath.shop},
+    {'icon': 'icons/explore.svg', 'label': 'Explore', 'route': AppPath.explore},
+    {'icon': 'icons/cart.svg', 'label': 'Cart', 'route': AppPath.cart},
+    {
+      'icon': 'icons/favourite.svg',
+      'label': 'Favourite',
+      'route': AppPath.favourite
+    },
+    {'icon': 'icons/account.svg', 'label': 'Account', 'route': AppPath.account}
   ];
   final Color _defaultColor = const Color.fromRGBO(24, 23, 37, 1);
   final Color _activeColor = const Color.fromRGBO(83, 177, 117, 1);
@@ -38,7 +43,7 @@ class _TabsState extends State<Tabs> {
     setState(() {
       page = '$name';
     });
-    context.goNamed('$name');
+    context.go('$name');
   }
 
   @override

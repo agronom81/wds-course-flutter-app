@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:wds_first_app/common/app_settings.dart';
-import 'package:wds_first_app/screens/home/bloc/home_cubit.dart';
 
+import '../../common/app_settings.dart';
 import '../../common/utils.dart';
+import '../../data/app_path.dart';
 import '../../widgets/empty.dart';
 import '../../widgets/home/home_categories.dart';
 import '../../widgets/home/home_products.dart';
 import '../../widgets/home/home_slider.dart';
 import '../../widgets/loader.dart';
 import '../../widgets/search_field.dart';
+import 'bloc/home_cubit.dart';
 
 class Home extends StatefulWidget {
   Home({super.key});
@@ -42,7 +43,7 @@ class _HomeState extends State<Home> {
               listener: (context, event) {
                 if (event is HomeEventError) {
                   widget.settings.removeToken();
-                  context.go('/');
+                  context.go(AppPath.login);
                 }
               },
               child: HomeContent(
@@ -91,7 +92,7 @@ class HomeContent extends StatelessWidget {
           data['exclusive'] != null && data['exclusive'].length > 0
               ? HomeProducts(
                   products: createProductShort(data['exclusive']),
-                  routeName: 'explore',
+                  routeName: AppPath.explore,
                   blockTitle: 'Exclusive Offer',
                 )
               : const Empty(),

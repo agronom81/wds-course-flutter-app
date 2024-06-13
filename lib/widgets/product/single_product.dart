@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../common/app_color.dart';
+import '../../data/app_path.dart';
 import '../../models/product.dart';
 import '../../models/product_short.dart';
 import '../../screens/cart/bloc/cart_bloc.dart';
@@ -141,7 +142,7 @@ class _SingleProductState extends State<SingleProduct> {
                             count: count,
                           ),
                         );
-                    context.goNamed('cart');
+                    context.go(AppPath.cart);
                   },
                 ),
               ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../data/app_path.dart';
 import 'login/bloc/login_cubit.dart';
 
 class Account extends StatelessWidget {
@@ -29,6 +30,6 @@ class Account extends StatelessWidget {
 
   _logout(BuildContext context) {
     context.read<LoginCubit>().logout();
-    context.go('/');
+    context.go(AppPath.login);
   }
 }
