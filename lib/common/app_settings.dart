@@ -53,4 +53,14 @@ class AppSettings {
         MapEntry(key, FavouriteProduct.fromJson(json.decode(value))));
     return restoredMap;
   }
+
+  Future<void> setIsWelcome() async {
+    final SharedPreferences prefs = await _getPrefs();
+    await prefs.setBool('isWelcome', false);
+  }
+
+  Future<bool> getIsWelcome() async {
+    final SharedPreferences prefs = await _getPrefs();
+    return prefs.getBool('isWelcome') ?? true;
+  }
 }

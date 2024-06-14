@@ -5,11 +5,40 @@ import 'package:go_router/go_router.dart';
 import '../../common/app_color.dart';
 import '../../data/app_path.dart';
 import '../../screens/login/bloc/login_cubit.dart';
+import '../auth/forgot_password_text.dart';
+import '../auth/have_account_text.dart';
+import '../auth/signup_text.dart';
 import '../custom_text.dart';
+import '../empty.dart';
 import '../primary_button.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+  const LoginForm({
+    super.key,
+    required this.typeForm,
+  });
+  final String typeForm;
+
+  final TextStyle labelStyle = const TextStyle(
+    color: Color.fromRGBO(24, 23, 37, 1),
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+  );
+
+  final InputDecoration inputStyle = const InputDecoration(
+    enabledBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: AppColor.loginBorderColor,
+        width: 1.0,
+      ),
+    ),
+    focusedBorder: UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: AppColor.loginBorderColor,
+        width: 1.0,
+      ),
+    ),
+  );
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -19,6 +48,7 @@ class _LoginFormState extends State<LoginForm> {
   bool _hideText = true;
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController username = TextEditingController();
   GlobalKey<FormState> loginForm = GlobalKey<FormState>();
 
   @override
@@ -28,6 +58,22 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLogin = widget.typeForm == 'login';
+    bool isSignup = widget.typeForm == 'signup';
+
+    String title = '';
+    String subtitle = '';
+    String buttonTitle = '';
+    if (isLogin) {
+      title = 'Login';
+      subtitle = 'Enter your email and password';
+      buttonTitle = 'Log In';
+    } else if (isSignup) {
+      title = 'Sign Up';
+      subtitle = 'Enter your credentials to continue';
+      buttonTitle = 'Sign Up';
+    }
+
     return BlocConsumer<LoginCubit, LoginState>(
       listener: (context, state) {
         if (state.isSuccess) {
@@ -48,21 +94,52 @@ class _LoginFormState extends State<LoginForm> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomText(
-                  text: 'Logging',
+                CustomText(
+                  text: title,
                   fontSize: 26,
                   fontWeight: FontWeight.w600,
                 ),
                 const SizedBox(
                   height: 15,
                 ),
-                const CustomText(
-                  text: 'Enter your emails and password',
+                CustomText(
+                  text: subtitle,
                   color: AppColor.textColor,
                 ),
                 const SizedBox(
                   height: 40,
                 ),
+                isSignup
+                    ? Column(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const CustomText(
+                                text: 'UserName',
+                                color: AppColor.textColor,
+                              ),
+                              TextFormField(
+                                controller: username,
+                                style: widget.labelStyle,
+                                decoration: widget.inputStyle,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Enter a User Name';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                        ],
+                      )
+                    : const Empty(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -72,25 +149,8 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     TextFormField(
                       controller: email,
-                      style: const TextStyle(
-                        color: Color.fromRGBO(24, 23, 37, 1),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      decoration: const InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromRGBO(226, 226, 226, 1),
-                            width: 1.0,
-                          ),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromRGBO(226, 226, 226, 1),
-                            width: 1.0,
-                          ),
-                        ),
-                      ),
+                      style: widget.labelStyle,
+                      decoration: widget.inputStyle,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
                       validator: (value) {
@@ -114,11 +174,7 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                     TextFormField(
                       controller: password,
-                      style: const TextStyle(
-                        color: Color.fromRGBO(24, 23, 37, 1),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
+                      style: widget.labelStyle,
                       textInputAction: TextInputAction.done,
                       obscureText: _hideText,
                       validator: (value) {
@@ -127,19 +183,7 @@ class _LoginFormState extends State<LoginForm> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
-                        enabledBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromRGBO(226, 226, 226, 1),
-                            width: 1.0,
-                          ),
-                        ),
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromRGBO(226, 226, 226, 1),
-                            width: 1.0,
-                          ),
-                        ),
+                      decoration: widget.inputStyle.copyWith(
                         suffixIcon: Padding(
                           padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
                           child: GestureDetector(
@@ -156,17 +200,12 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ],
                 ),
-                Container(
-                  padding: const EdgeInsets.only(top: 20, bottom: 30),
-                  alignment: Alignment.centerRight,
-                  child: InkWell(
-                    onTap: () {},
-                    child: const CustomText(
-                      text: 'Forgot Password',
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
+                isLogin
+                    ? const ForgotPasswordText()
+                    : const SizedBox(
+                        height: 20,
+                      ),
+                isSignup ? const SignupText() : const Empty(),
                 Builder(
                   builder: (BuildContext context) {
                     var loginState = context.watch<LoginCubit>().state;
@@ -180,7 +219,7 @@ class _LoginFormState extends State<LoginForm> {
                     }
 
                     return PrimaryButton(
-                      title: 'Log In',
+                      title: buttonTitle,
                       action: _login,
                     );
                   },
@@ -188,28 +227,10 @@ class _LoginFormState extends State<LoginForm> {
                 const SizedBox(
                   height: 25,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const CustomText(
-                        text: 'Don\'t have an account?',
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: const CustomText(
-                        text: 'Signup',
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromRGBO(83, 177, 117, 1),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                )
+                HaveAccountText(
+                  isLogin: isLogin,
+                  isSignup: isSignup,
+                ),
               ],
             ),
           ),
@@ -225,14 +246,29 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _login() {
-    if (loginForm.currentState?.validate() == true) {
-      String emailValue = email.text;
-      String passwordValue = password.text;
+    if (widget.typeForm == 'login') {
+      if (loginForm.currentState?.validate() == true) {
+        String emailValue = email.text;
+        String passwordValue = password.text;
 
-      context.read<LoginCubit>().login(
-            login: emailValue,
-            password: passwordValue,
-          );
+        context.read<LoginCubit>().login(
+              login: emailValue,
+              password: passwordValue,
+            );
+      }
+    }
+
+    if (widget.typeForm == 'signup') {
+      if (loginForm.currentState?.validate() == true) {
+        String emailValue = email.text;
+        String passwordValue = password.text;
+        String userNameValue = username.text;
+
+        context.read<LoginCubit>().login(
+              login: emailValue,
+              password: passwordValue,
+            );
+      }
     }
   }
 

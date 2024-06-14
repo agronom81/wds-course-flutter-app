@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../favourite/bloc/favourite_cubit.dart';
 
 class InitApp extends StatefulWidget {
-  const InitApp({super.key, required this.child});
+  const InitApp({
+    super.key,
+    required this.child,
+  });
 
   final Widget child;
 

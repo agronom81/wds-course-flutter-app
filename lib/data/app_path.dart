@@ -8,4 +8,6 @@ class AppPath {
   static String signup = '/signup';
   static String product = '/product/:productId';
   static String welcome = '/welcome';
+  static String privacy = '/privacy';
+  static String termsService = '/termsService';
 }

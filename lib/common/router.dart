@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../data/app_path.dart';
@@ -9,7 +10,11 @@ import '../screens/explore.dart';
 import '../screens/favourite/favourite.dart';
 import '../screens/home/home.dart';
 import '../screens/login/login.dart';
+import '../screens/privacy_poplicy.dart';
 import '../screens/product.dart';
+import '../screens/signup.dart';
+import '../screens/terms_service.dart';
+import 'app_settings.dart';
 import 'tabs.dart';
 
 final router = GoRouter(
@@ -17,12 +22,29 @@ final router = GoRouter(
   routes: [
     ShellRoute(
       builder: (context, state, child) => App(
+        settings: context.read<AppSettings>(),
         child: child,
       ),
       routes: [
         GoRoute(
           path: AppPath.login,
           builder: (context, state) => Login(),
+        ),
+        GoRoute(
+          path: AppPath.signup,
+          builder: (context, state) => Signup(),
+        ),
+        GoRoute(
+          path: AppPath.privacy,
+          builder: (context, state) => const PrivacyPolicy(),
+        ),
+        GoRoute(
+          path: AppPath.termsService,
+          builder: (context, state) => const TermsService(),
+        ),
+        GoRoute(
+          path: AppPath.signup,
+          builder: (context, state) => Signup(),
         ),
         ShellRoute(
             builder: (context, state, child) => AuthApp(child: child),
