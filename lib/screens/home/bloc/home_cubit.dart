@@ -2,6 +2,8 @@ import 'package:bloc_presentation/bloc_presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/server_api.dart';
+import '../../../common/utils.dart';
+import 'home_state.dart';
 
 class HomeEvent {}
 
@@ -38,33 +40,33 @@ class HomeCubit extends Cubit<HomeState>
       }
     });
   }
-}
 
-class HomeState {
-  String message;
-  late dynamic data;
-  late bool isLoading;
+  loadProducts() {
+    serverApi.getProducts().then((value) {
+      if (value.isSuccess) {
+        dynamic products = getValue(value.data, 'products');
+        if (products != null && products.length > 0) {
+          emit(state.copyWith(
+            products: createProductShort(products),
+          ));
+          _createProductsList(products);
+        }
+      }
+    });
+  }
 
-  HomeState({
-    required this.data,
-    required this.isLoading,
-    required this.message,
-  });
-
-  HomeState.init()
-      : isLoading = false,
-        message = '',
-        data = const [];
-
-  HomeState copyWith({
-    dynamic data,
-    bool? isLoading,
-    String? message,
-  }) {
-    return HomeState(
-      data: data ?? this.data,
-      isLoading: isLoading ?? this.isLoading,
-      message: '',
-    );
+  _createProductsList(dynamic products) {
+    List<Map<String, dynamic>> productOptions = [];
+    if (products.isNotEmpty) {
+      for (Map<String, dynamic> product in products) {
+        productOptions.add({
+          'id': product['id'],
+          'name': product['name'],
+        });
+      }
+      emit(state.copyWith(
+        productsAutocomplete: productOptions,
+      ));
+    }
   }
 }

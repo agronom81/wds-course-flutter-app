@@ -62,6 +62,41 @@ class LoginCubit extends Cubit<LoginState> {
           userName: ''),
     );
   }
+
+  signup({
+    required String email,
+    required String password,
+    required String username,
+  }) async {
+    emit(state.copyWith(
+      isLoading: true,
+      isSuccess: false,
+      message: '',
+    ));
+    var result = await serverApi.signup(
+      email: email,
+      password: password,
+      username: username,
+    );
+
+    if (result.isSuccess) {
+      String token = getValue(result.data, 'token');
+      settings.setToken(token);
+      emit(state.copyWith(
+          isLoading: false,
+          userEmail: getValue(result.data, 'user_email'),
+          avatar: getValue(result.data, 'avatar'),
+          message: result.message,
+          isSuccess: true,
+          userName: getValue(result.data, 'user_display_name')));
+    } else {
+      emit(state.copyWith(
+        isLoading: false,
+        isSuccess: false,
+        message: result.message,
+      ));
+    }
+  }
 }
 
 class LoginState {

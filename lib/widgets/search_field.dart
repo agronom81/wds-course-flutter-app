@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../api/server_api.dart';
-import '../common/utils.dart';
+import '../screens/home/bloc/home_cubit.dart';
 
 class SearchField extends StatefulWidget {
   const SearchField({super.key});
@@ -13,9 +14,6 @@ class SearchField extends StatefulWidget {
 
 class _SearchFieldState extends State<SearchField> {
   ServerApi api = ServerApi();
-  late List<Map<String, dynamic>> options = [
-    {'id': 0, 'name': ''}
-  ];
 
   @override
   void initState() {
@@ -25,12 +23,15 @@ class _SearchFieldState extends State<SearchField> {
 
   @override
   Widget build(BuildContext context) {
+    var homeState = context.watch<HomeCubit>().state;
+
     return Autocomplete<Map<String, dynamic>>(
       optionsBuilder: (TextEditingValue textEditingValue) {
         if (textEditingValue.text == '') {
           return const Iterable<Map<String, dynamic>>.empty();
         }
-        return options.where((Map<String, dynamic> option) {
+        return homeState.productsAutocomplete
+            .where((Map<String, dynamic> option) {
           return option['name']
               .toLowerCase()
               .contains(textEditingValue.text.toLowerCase());
@@ -69,28 +70,31 @@ class _SearchFieldState extends State<SearchField> {
       },
       optionsViewBuilder: ((context, onSelected, options) {
         return Material(
-          child: ListView.separated(
-            padding: const EdgeInsets.symmetric(vertical: 20),
-            itemBuilder: (BuildContext context, int index) {
-              final option = options.elementAt(index);
-              return InkWell(
-                child: Text(
-                  option['name'],
-                  style: const TextStyle(
-                    fontSize: 16,
+          child: Container(
+            color: Colors.white,
+            child: ListView.separated(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              itemBuilder: (BuildContext context, int index) {
+                final option = options.elementAt(index);
+                return InkWell(
+                  child: Text(
+                    option['name'],
+                    style: const TextStyle(
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                onTap: () {
-                  onSelected(option);
-                },
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                color: Colors.white.withOpacity(0),
-              );
-            },
-            itemCount: options.length,
+                  onTap: () {
+                    onSelected(option);
+                  },
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return Divider(
+                  color: Colors.white.withOpacity(0),
+                );
+              },
+              itemCount: options.length,
+            ),
           ),
         );
       }),
@@ -103,22 +107,6 @@ class _SearchFieldState extends State<SearchField> {
   }
 
   void _getData() {
-    api.getProducts().then((value) {
-      if (value.isSuccess) {
-        List<Map<String, dynamic>> productOptions = [];
-        dynamic products = getValue(value.data, 'products');
-        if (products != null && products.length > 0) {
-          for (dynamic product in products) {
-            productOptions.add({
-              'id': product['id'],
-              'name': product['name'],
-            });
-          }
-          setState(() {
-            options = productOptions;
-          });
-        }
-      }
-    });
+    context.read<HomeCubit>().loadProducts();
   }
 }

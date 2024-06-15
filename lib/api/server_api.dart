@@ -22,6 +22,20 @@ class ServerApi {
     return api.sendPost(path: '/login', data: data);
   }
 
+  Future<HttpServerResponse> signup({
+    required String email,
+    required String password,
+    required String username,
+  }) {
+    Map<String, dynamic> data = {
+      'username': username,
+      'password': password,
+      'login': email
+    };
+
+    return api.sendPost(path: '/login', data: data);
+  }
+
   Future<HttpServerResponse> getHome() async {
     Map<String, dynamic> data = {};
     return api.sendGet(path: '/home', data: data);

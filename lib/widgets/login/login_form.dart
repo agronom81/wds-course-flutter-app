@@ -264,9 +264,10 @@ class _LoginFormState extends State<LoginForm> {
         String passwordValue = password.text;
         String userNameValue = username.text;
 
-        context.read<LoginCubit>().login(
-              login: emailValue,
+        context.read<LoginCubit>().signup(
+              email: emailValue,
               password: passwordValue,
+              username: userNameValue,
             );
       }
     }

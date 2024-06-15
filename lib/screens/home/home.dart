@@ -99,7 +99,7 @@ class HomeContent extends StatelessWidget {
           data['best'] != null && data['best'].length > 0
               ? HomeProducts(
                   products: createProductShort(data['best']),
-                  routeName: 'explore',
+                  routeName: AppPath.explore,
                   blockTitle: 'Best Selling',
                 )
               : const Empty(),
