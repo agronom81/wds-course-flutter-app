@@ -25,15 +25,15 @@ class ServerApi {
   Future<HttpServerResponse> signup({
     required String email,
     required String password,
-    required String username,
+    required String name,
   }) {
     Map<String, dynamic> data = {
-      'username': username,
+      'username': email,
       'password': password,
-      'login': email
+      'name': name
     };
 
-    return api.sendPost(path: '/login', data: data);
+    return api.sendPost(path: '/register', data: data);
   }
 
   Future<HttpServerResponse> getHome() async {
@@ -51,8 +51,22 @@ class ServerApi {
     return api.sendGet(path: '/product', data: data);
   }
 
-  Future<HttpServerResponse> getProducts() async {
+  Future<HttpServerResponse> getProducts(
+      {int catId = 0, String tag = '', String query = ''}) async {
     Map<String, dynamic> data = {};
+
+    if (catId != 0) {
+      data['cat_id'] = catId;
+    }
+
+    if (tag != '') {
+      data['tag'] = tag;
+    }
+
+    if (query != '') {
+      data['query'] = query;
+    }
+
     return api.sendGet(path: '/products', data: data);
   }
 }

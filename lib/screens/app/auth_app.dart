@@ -6,6 +6,7 @@ import '../../common/app_settings.dart';
 import '../cart/bloc/cart_bloc.dart';
 import '../favourite/bloc/favourite_cubit.dart';
 import '../home/bloc/home_cubit.dart';
+import '../products/bloc/products_cubit.dart';
 import 'init_app.dart';
 
 class AuthApp extends StatelessWidget {
@@ -25,6 +26,9 @@ class AuthApp extends StatelessWidget {
         }),
         BlocProvider(create: (context) {
           return FavouriteCubit(settings: context.read<AppSettings>());
+        }),
+        BlocProvider(create: (context) {
+          return ProductsCubit(serverApi: context.read<ServerApi>());
         }),
       ],
       child: InitApp(

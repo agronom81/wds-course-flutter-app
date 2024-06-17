@@ -74,9 +74,9 @@ class LoginCubit extends Cubit<LoginState> {
       message: '',
     ));
     var result = await serverApi.signup(
-      email: email,
+      name: username,
       password: password,
-      username: username,
+      email: email,
     );
 
     if (result.isSuccess) {

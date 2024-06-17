@@ -12,6 +12,7 @@ import '../screens/home/home.dart';
 import '../screens/login/login.dart';
 import '../screens/privacy_poplicy.dart';
 import '../screens/product.dart';
+import '../screens/products/products.dart';
 import '../screens/signup.dart';
 import '../screens/terms_service.dart';
 import 'app_settings.dart';
@@ -54,6 +55,13 @@ final router = GoRouter(
                 builder: (context, GoRouterState state) {
                   final String id = state.pathParameters['productId']!;
                   return Product(id: id);
+                },
+              ),
+              GoRoute(
+                path: AppPath.products,
+                builder: (context, GoRouterState state) {
+                  // final String id = state.pathParameters['productId']!;
+                  return const Products();
                 },
               ),
               ShellRoute(
