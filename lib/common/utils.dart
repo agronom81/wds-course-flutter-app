@@ -10,6 +10,11 @@ dynamic getValue(data, key) {
   return null;
 }
 
+String clearName(dynamic name) {
+  if (name == null) return '';
+  return name.replaceAll('&amp;', '&');
+}
+
 List<ProductShort> createProductShort(List<dynamic> products) {
   List<ProductShort> productShorts = [];
 

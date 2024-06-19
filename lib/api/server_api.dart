@@ -52,10 +52,10 @@ class ServerApi {
   }
 
   Future<HttpServerResponse> getProducts(
-      {int catId = 0, String tag = '', String query = ''}) async {
+      {String catId = '', String tag = '', String query = ''}) async {
     Map<String, dynamic> data = {};
 
-    if (catId != 0) {
+    if (catId != '') {
       data['cat_id'] = catId;
     }
 

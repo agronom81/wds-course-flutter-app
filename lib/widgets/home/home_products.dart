@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/product_extra.dart';
 import '../../models/product_short.dart';
 import '../../screens/cart/bloc/cart_bloc.dart';
 import '../../screens/cart/bloc/cart_event.dart';
@@ -13,11 +14,13 @@ class HomeProducts extends StatelessWidget {
     required this.products,
     required this.blockTitle,
     required this.routeName,
+    required this.extra,
   });
 
   final List<ProductShort> products;
   final String blockTitle;
   final String routeName;
+  final ProductExtra extra;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +33,7 @@ class HomeProducts extends StatelessWidget {
         SectionTitle(
           title: blockTitle,
           routeName: routeName,
+          extra: extra,
         ),
         SizedBox(
           height: 250,

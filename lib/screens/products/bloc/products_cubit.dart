@@ -20,12 +20,11 @@ class ProductsCubit extends Cubit<ProductsState> {
     serverApi.getProducts(tag: 'exclusive').then((value) {
       if (value.isSuccess) {
         dynamic products = getValue(value.data, 'products');
-        if (products != null && products.length > 0) {
-          emit(state.copyWith(
-            isLoading: false,
-            exclusiveProducts: createProductShort(products),
-          ));
-        }
+        emit(state.copyWith(
+          isLoading: false,
+          exclusiveProducts:
+              products != null ? createProductShort(products) : [],
+        ));
       } else {
         emit(state.copyWith(
           isLoading: false,
@@ -45,12 +44,11 @@ class ProductsCubit extends Cubit<ProductsState> {
     serverApi.getProducts(tag: 'best_sell').then((value) {
       if (value.isSuccess) {
         dynamic products = getValue(value.data, 'products');
-        if (products != null && products.length > 0) {
-          emit(state.copyWith(
-            isLoading: false,
-            bestSellProducts: createProductShort(products),
-          ));
-        }
+        emit(state.copyWith(
+          isLoading: false,
+          bestSellProducts:
+              products != null ? createProductShort(products) : [],
+        ));
       } else {
         emit(state.copyWith(
           isLoading: false,
@@ -61,7 +59,7 @@ class ProductsCubit extends Cubit<ProductsState> {
     });
   }
 
-  filterCategoryProducts(int categoryId) {
+  filterCategoryProducts(String categoryId) {
     emit(state.copyWith(
       isLoading: true,
       isSuccess: true,
@@ -70,37 +68,10 @@ class ProductsCubit extends Cubit<ProductsState> {
     serverApi.getProducts(catId: categoryId).then((value) {
       if (value.isSuccess) {
         dynamic products = getValue(value.data, 'products');
-        if (products != null && products.length > 0) {
-          emit(state.copyWith(
-            isLoading: false,
-            products: createProductShort(products),
-          ));
-        }
-      } else {
         emit(state.copyWith(
           isLoading: false,
-          isSuccess: false,
-          message: value.message,
+          products: products != null ? createProductShort(products) : [],
         ));
-      }
-    });
-  }
-
-  loadProducts() {
-    emit(state.copyWith(
-      isLoading: true,
-      isSuccess: true,
-      message: '',
-    ));
-    serverApi.getProducts().then((value) {
-      if (value.isSuccess) {
-        dynamic products = getValue(value.data, 'products');
-        if (products != null && products.length > 0) {
-          emit(state.copyWith(
-            isLoading: false,
-            products: createProductShort(products),
-          ));
-        }
       } else {
         emit(state.copyWith(
           isLoading: false,

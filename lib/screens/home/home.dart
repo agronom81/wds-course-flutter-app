@@ -6,7 +6,9 @@ import 'package:go_router/go_router.dart';
 
 import '../../common/app_settings.dart';
 import '../../common/utils.dart';
+import '../../data/app_constants.dart';
 import '../../data/app_path.dart';
+import '../../models/product_extra.dart';
 import '../../widgets/empty.dart';
 import '../../widgets/home/home_categories.dart';
 import '../../widgets/home/home_products.dart';
@@ -94,13 +96,23 @@ class HomeContent extends StatelessWidget {
                   products: createProductShort(data['exclusive']),
                   routeName: AppPath.products,
                   blockTitle: 'Exclusive Offer',
+                  extra: ProductExtra(
+                    type: AppConstants.exclusive,
+                    catId: '',
+                    title: 'Exclusive Offer',
+                  ),
                 )
               : const Empty(),
           data['best'] != null && data['best'].length > 0
               ? HomeProducts(
                   products: createProductShort(data['best']),
-                  routeName: AppPath.explore,
+                  routeName: AppPath.products,
                   blockTitle: 'Best Selling',
+                  extra: ProductExtra(
+                    type: AppConstants.bestSell,
+                    catId: '',
+                    title: 'Best Selling',
+                  ),
                 )
               : const Empty(),
           data['category'] != null && data['category'].length > 0

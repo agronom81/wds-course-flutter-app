@@ -17,12 +17,11 @@ class ProductsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
-      // physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         crossAxisSpacing: 15.0,
         mainAxisSpacing: 15.0,
-        mainAxisExtent: 210,
+        mainAxisExtent: 250,
       ),
       itemCount: products.length,
       itemBuilder: (BuildContext context, int index) {

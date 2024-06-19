@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../common/color_apis.dart';
+import '../common/utils.dart';
+import '../data/app_path.dart';
 import '../models/category.dart';
+import '../models/product_extra.dart';
 
 class CategoryVerticalCard extends StatelessWidget {
   const CategoryVerticalCard({super.key, required this.category});
@@ -11,7 +15,16 @@ class CategoryVerticalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        context.push(
+          AppPath.products,
+          extra: ProductExtra(
+            type: '',
+            catId: category.id.toString(),
+            title: clearName(category.name),
+          ),
+        );
+      },
       child: Container(
         padding:
             const EdgeInsets.only(top: 27, left: 30, right: 30, bottom: 15),

@@ -4,9 +4,9 @@ import '../api/server_api.dart';
 import '../common/utils.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/explore/explore_categories.dart';
+import '../widgets/explore/search.dart';
 import '../widgets/loader.dart';
 import '../widgets/screen_title.dart';
-import '../widgets/search_field.dart';
 
 class Explore extends StatefulWidget {
   const Explore({super.key});
@@ -19,6 +19,7 @@ class _ExploreState extends State<Explore> {
   ServerApi api = ServerApi();
   late dynamic data;
   late bool isLoading = true;
+  late String query = '';
 
   @override
   void initState() {
@@ -42,7 +43,9 @@ class _ExploreState extends State<Explore> {
             const SizedBox(
               height: 30,
             ),
-            const SearchField(),
+            Search(
+              searchQuery: setQuery,
+            ),
             const SizedBox(
               height: 25,
             ),
@@ -77,6 +80,12 @@ class _ExploreState extends State<Explore> {
           ),
         );
       }
+    });
+  }
+
+  void setQuery(String value) {
+    setState(() {
+      query = value;
     });
   }
 }

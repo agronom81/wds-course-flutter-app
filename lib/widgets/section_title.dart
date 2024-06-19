@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../models/product_extra.dart';
+
 class SectionTitle extends StatelessWidget {
   const SectionTitle({
     super.key,
     required this.title,
     required this.routeName,
+    required this.extra,
   });
 
   final String title;
   final String routeName;
+  final ProductExtra extra;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +36,7 @@ class SectionTitle extends StatelessWidget {
                 onTap: () {
                   context.push(
                     routeName,
+                    extra: extra,
                   );
                 },
                 child: const Text(

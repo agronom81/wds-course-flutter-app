@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../data/app_path.dart';
 import '../../models/category.dart';
+import '../../models/product_extra.dart';
 import '../category_card.dart';
 import '../section_title.dart';
 
@@ -20,6 +21,11 @@ class HomeCategories extends StatelessWidget {
         SectionTitle(
           title: 'Categories',
           routeName: AppPath.explore,
+          extra: ProductExtra(
+            type: '',
+            catId: '',
+            title: 'Explore',
+          ),
         ),
         SizedBox(
           height: 105,

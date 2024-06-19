@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../data/app_path.dart';
+import '../models/product_extra.dart';
 import '../screens/account.dart';
 import '../screens/app/app.dart';
 import '../screens/app/auth_app.dart';
@@ -60,8 +61,9 @@ final router = GoRouter(
               GoRoute(
                 path: AppPath.products,
                 builder: (context, GoRouterState state) {
-                  // final String id = state.pathParameters['productId']!;
-                  return const Products();
+                  return Products(
+                    extra: state.extra as ProductExtra?,
+                  );
                 },
               ),
               ShellRoute(
