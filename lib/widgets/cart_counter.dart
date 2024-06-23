@@ -20,6 +20,7 @@ class CartCounter extends StatelessWidget {
         child: BlocBuilder<CartBloc, CartState>(
           builder: (context, state) {
             int sum = state.getProductsCount();
+
             return Text(
               "$sum",
               style: const TextStyle(

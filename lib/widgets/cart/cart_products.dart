@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../data/app_path.dart';
-import '../../models/favourite_product.dart';
-import '../../models/product_short.dart';
+import '../../models/cart_product.dart';
 import '../../screens/cart/bloc/cart_bloc.dart';
-import '../../screens/cart/bloc/cart_event.dart';
-import '../../screens/favourite/bloc/favourite_cubit.dart';
+import '../../screens/cart/bloc/cart_state.dart';
 import '../primary_button.dart';
-import 'favourite_product_card.dart';
+import 'cart_product_card.dart';
 
-class FavouriteProducts extends StatelessWidget {
-  const FavouriteProducts({
+class CartProducts extends StatelessWidget {
+  const CartProducts({
     super.key,
     required this.products,
   });
-  final List<FavouriteProduct> products;
+
+  final List<CartProduct> products;
 
   @override
   Widget build(BuildContext context) {
     if (products.isEmpty) {
       return const Center(
-        child: Text('No Favourite Products'),
+        child: Text('The cart is empty'),
       );
     }
 
@@ -45,8 +42,8 @@ class FavouriteProducts extends StatelessWidget {
               padding: const EdgeInsets.all(8),
               itemCount: products.length,
               itemBuilder: (BuildContext context, int index) {
-                return FavouriteProductCard(
-                  product: products[index].product,
+                return CartProductCard(
+                  cartProduct: products[index],
                 );
               },
               separatorBuilder: (BuildContext context, int index) =>
@@ -63,27 +60,22 @@ class FavouriteProducts extends StatelessWidget {
           const SizedBox(
             height: 50,
           ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 25,
-              right: 25,
-            ),
-            child: PrimaryButton(
-              title: 'Add All To Cart',
-              action: () {
-                List<ProductShort> productShortList = products
-                    .map((favouriteProduct) => favouriteProduct.product)
-                    .toList();
+          BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              double sum = state.getProductsSum();
 
-                context.read<CartBloc>().add(
-                      CartAddFavouritesEvent(
-                        products: productShortList,
-                      ),
-                    );
-                context.read<FavouriteCubit>().onClear();
-                context.go(AppPath.cart);
-              },
-            ),
+              return Padding(
+                padding: const EdgeInsets.only(
+                  left: 25,
+                  right: 25,
+                ),
+                child: PrimaryButton(
+                  title: 'Go to Checkout',
+                  cartSummary: sum.toString(),
+                  action: () {},
+                ),
+              );
+            },
           ),
         ],
       ),

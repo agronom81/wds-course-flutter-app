@@ -26,4 +26,12 @@ class CartState {
     }
     return sum;
   }
+
+  double getProductsSum() {
+    double sum = 0;
+    for (CartProduct product in getListProducts()) {
+      sum += (product.count * double.parse(product.product.price));
+    }
+    return double.parse(sum.toStringAsFixed(2));
+  }
 }

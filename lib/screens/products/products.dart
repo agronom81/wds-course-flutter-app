@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../common/utils.dart';
 import '../../data/app_constants.dart';
 import '../../models/product_extra.dart';
 import '../../models/product_short.dart';
@@ -35,6 +36,7 @@ class _ProductsState extends State<Products> {
   Widget build(BuildContext context) {
     void addProduct(ProductShort product) async {
       context.read<CartBloc>().add(CartAddEvent(product: product));
+      showAlertDialog(context);
     }
 
     return Scaffold(

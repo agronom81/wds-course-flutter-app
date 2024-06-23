@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wds_first_app/widgets/cart/cart_products.dart';
 
+import '../../models/cart_product.dart';
+import '../../widgets/screen_title.dart';
 import 'bloc/cart_bloc.dart';
-import 'bloc/cart_event.dart';
+import 'bloc/cart_state.dart';
 
 class Cart extends StatelessWidget {
   const Cart({super.key});
@@ -11,18 +14,17 @@ class Cart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Cart',
-          textAlign: TextAlign.center,
+        centerTitle: true,
+        title: const ScreenTitle(
+          title: 'My Cart',
         ),
       ),
-      body: Center(
-        child: FilledButton(
-          onPressed: () {
-            context.read<CartBloc>().add(CartClearEvent());
-          },
-          child: const Text("Clear"),
-        ),
+      body: BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          List<CartProduct> products = state.products.values.toList();
+
+          return CartProducts(products: products);
+        },
       ),
     );
   }

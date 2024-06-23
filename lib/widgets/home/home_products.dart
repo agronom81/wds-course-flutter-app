@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../common/utils.dart';
 import '../../models/product_extra.dart';
 import '../../models/product_short.dart';
 import '../../screens/cart/bloc/cart_bloc.dart';
@@ -26,6 +27,7 @@ class HomeProducts extends StatelessWidget {
   Widget build(BuildContext context) {
     void addProduct(ProductShort product) async {
       context.read<CartBloc>().add(CartAddEvent(product: product));
+      showAlertDialog(context);
     }
 
     return Column(

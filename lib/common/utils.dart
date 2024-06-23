@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import '../data/app_path.dart';
 import '../models/category.dart';
 import '../models/product.dart';
 import '../models/product_short.dart';
@@ -64,4 +68,34 @@ Product createProduct(dynamic productFull) {
   );
 
   return product;
+}
+
+void showAlertDialog(BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Product added to cart'),
+          content: const Text('Go to cart'),
+          actions: [
+            FilledButton(
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all<Color>(
+                    const Color.fromRGBO(124, 124, 124, 1)),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                context.go(AppPath.cart);
+              },
+              child: const Text('Go to cart'),
+            )
+          ],
+        );
+      });
 }

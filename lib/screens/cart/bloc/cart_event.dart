@@ -12,6 +12,24 @@ class CartAddEvent extends CartEvent {
   }) : super();
 }
 
+class CartChangeEvent extends CartEvent {
+  final ProductShort product;
+  final int count;
+
+  CartChangeEvent({
+    required this.product,
+    required this.count,
+  }) : super();
+}
+
+class CartRemoveEvent extends CartEvent {
+  final int productId;
+
+  CartRemoveEvent({
+    required this.productId,
+  }) : super();
+}
+
 class CartAddFavouritesEvent extends CartEvent {
   final List<ProductShort> products;
 

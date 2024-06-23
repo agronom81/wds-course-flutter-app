@@ -99,7 +99,7 @@ class _TabsState extends State<Tabs> {
                       ],
                     ),
                   ),
-                  icon['route'] == 'cart'
+                  icon['route'] == AppPath.cart
                       ? const Positioned(
                           top: 22, right: 0, child: CartCounter())
                       : const Empty(),

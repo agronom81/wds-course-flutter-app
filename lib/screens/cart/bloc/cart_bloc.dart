@@ -12,6 +12,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       emit(_onAddProduct(event.product, count));
     });
 
+    on<CartChangeEvent>((event, emit) {
+      int count = event.count;
+      emit(_onChangeProduct(event.product, count));
+    });
+
+    on<CartRemoveEvent>((event, emit) {
+      emit(_onRemoveProduct(event.productId));
+    });
+
     on<CartAddFavouritesEvent>((event, emit) {
       emit(_onAddFavourites(event.products));
     });
@@ -56,6 +65,23 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
     }
 
+    return CartState(products: updatedProducts);
+  }
+
+  CartState _onChangeProduct(ProductShort product, int count) {
+    final Map<String, CartProduct> updatedProducts = Map.from(state.products);
+    String key = product.id.toString();
+    updatedProducts[key] = CartProduct(
+      product: product,
+      count: count,
+    );
+    return CartState(products: updatedProducts);
+  }
+
+  CartState _onRemoveProduct(int productId) {
+    final Map<String, CartProduct> updatedProducts = Map.from(state.products);
+    String key = productId.toString();
+    updatedProducts.remove(key);
     return CartState(products: updatedProducts);
   }
 }
