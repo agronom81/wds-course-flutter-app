@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../data/app_path.dart';
+import '../screens/cart/bloc/cart_bloc.dart';
+import '../screens/cart/bloc/cart_state.dart';
 import '../widgets/cart_counter.dart';
+import '../widgets/checkout/checkout.dart';
 import '../widgets/empty.dart';
 
 class Tabs extends StatefulWidget {
@@ -48,66 +52,82 @@ class _TabsState extends State<Tabs> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.child,
-      bottomNavigationBar: Container(
-        height: 92,
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.vertical(
-            top: Radius.circular(15.0),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(85, 94, 88, 0.09),
-              spreadRadius: 0,
-              blurRadius: 15,
-              offset: Offset(2, -5),
+    return BlocListener<CartBloc, CartState>(
+      listener: (context, state) {
+        if (state.isOpenCheckout) {
+          _goToCheckout();
+        }
+      },
+      child: Scaffold(
+        body: widget.child,
+        bottomNavigationBar: Container(
+          height: 92,
+          decoration: const BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(15.0),
             ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            for (Map<String, dynamic> icon in _icons)
-              InkWell(
-                onTap: () {
-                  _goTo(icon['route']);
-                },
-                child: Stack(children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 3, left: 3),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          icon['icon'],
-                          width: 24,
-                          height: 24,
-                          colorFilter: ColorFilter.mode(
-                            _getActiveColor(icon['route']),
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        Text(
-                          icon['label'],
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: _getActiveColor(icon['route']),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  icon['route'] == AppPath.cart
-                      ? const Positioned(
-                          top: 22, right: 0, child: CartCounter())
-                      : const Empty(),
-                ]),
+            boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(85, 94, 88, 0.09),
+                spreadRadius: 0,
+                blurRadius: 15,
+                offset: Offset(2, -5),
               ),
-          ],
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              for (Map<String, dynamic> icon in _icons)
+                InkWell(
+                  onTap: () {
+                    _goTo(icon['route']);
+                  },
+                  child: Stack(children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 3, left: 3),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            icon['icon'],
+                            width: 24,
+                            height: 24,
+                            colorFilter: ColorFilter.mode(
+                              _getActiveColor(icon['route']),
+                              BlendMode.srcIn,
+                            ),
+                          ),
+                          Text(
+                            icon['label'],
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: _getActiveColor(icon['route']),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    icon['route'] == AppPath.cart
+                        ? const Positioned(
+                            top: 22, right: 0, child: CartCounter())
+                        : const Empty(),
+                  ]),
+                ),
+            ],
+          ),
         ),
       ),
+    );
+  }
+
+  _goToCheckout() {
+    showModalBottomSheet<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return Checkout();
+      },
     );
   }
 }

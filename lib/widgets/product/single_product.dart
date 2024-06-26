@@ -28,6 +28,7 @@ class SingleProduct extends StatefulWidget {
 
 class _SingleProductState extends State<SingleProduct> {
   late int count;
+  late bool inCart = false;
 
   @override
   void initState() {
@@ -40,6 +41,14 @@ class _SingleProductState extends State<SingleProduct> {
     void setCount(int value) {
       setState(() {
         count = value;
+      });
+    }
+
+    var state = context.watch<CartBloc>().state;
+
+    if (state.isInCart(widget.product.id)) {
+      setState(() {
+        inCart = true;
       });
     }
 
@@ -127,22 +136,28 @@ class _SingleProductState extends State<SingleProduct> {
                   height: 30,
                 ),
                 PrimaryButton(
-                  title: 'Add To Basket',
+                  title: !inCart ? 'Add To Basket' : 'Go to Cart',
                   action: () {
-                    context.read<CartBloc>().add(
-                          CartAddEvent(
-                            product: ProductShort(
-                              id: widget.product.id,
-                              name: widget.product.name,
-                              price: widget.product.price,
-                              short_description:
-                                  widget.product.shortDescription,
-                              preview_image: widget.product.preview_image,
+                    if (inCart) {
+                      context.go(AppPath.cart);
+                    } else {
+                      context.read<CartBloc>().add(
+                            CartAddEvent(
+                              product: ProductShort(
+                                id: widget.product.id,
+                                name: widget.product.name,
+                                price: widget.product.price,
+                                short_description:
+                                    widget.product.shortDescription,
+                                preview_image: widget.product.preview_image,
+                              ),
+                              count: count,
                             ),
-                            count: count,
-                          ),
-                        );
-                    context.go(AppPath.cart);
+                          );
+                      setState(() {
+                        inCart = true;
+                      });
+                    }
                   },
                 ),
               ],

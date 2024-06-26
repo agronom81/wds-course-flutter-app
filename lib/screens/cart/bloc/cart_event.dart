@@ -38,4 +38,12 @@ class CartAddFavouritesEvent extends CartEvent {
   }) : super();
 }
 
+class CartCheckoutEvent extends CartEvent {
+  final bool isOpen;
+
+  CartCheckoutEvent({
+    required this.isOpen,
+  }) : super();
+}
+
 class CartClearEvent extends CartEvent {}

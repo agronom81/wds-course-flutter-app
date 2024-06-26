@@ -11,4 +11,6 @@ class AppPath {
   static String welcome = '/welcome';
   static String privacy = '/privacy';
   static String termsService = '/termsService';
+  static String conditions = '/conditions';
+  static String orderComplete = '/orderComplete';
 }

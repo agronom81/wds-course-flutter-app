@@ -28,6 +28,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     on<CartClearEvent>((event, emit) {
       emit(CartState(products: {}));
     });
+
+    on<CartCheckoutEvent>((event, emit) {
+      emit(CartState(isOpenCheckout: event.isOpen, products: state.products));
+    });
   }
 
   CartState _onAddProduct(ProductShort product, int count) {

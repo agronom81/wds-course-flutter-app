@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../common/utils.dart';
 import '../../models/cart_product.dart';
 import '../../models/product_short.dart';
 import '../../screens/cart/bloc/cart_bloc.dart';
 import '../../screens/cart/bloc/cart_event.dart';
+import '../../screens/cart/bloc/cart_state.dart';
 import '../qty_counter.dart';
 
 class CartProductCard extends StatelessWidget {
@@ -115,13 +117,22 @@ class CartProductCard extends StatelessWidget {
                             );
                       },
                     ),
-                    Text(
-                      '\$${cartProduct.product.price}',
-                      style: const TextStyle(
-                        color: Color.fromRGBO(24, 23, 37, 1.0),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
+                    BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        CartProduct? product =
+                            state.getProduct(cartProduct.product.id);
+                        String cost = getProductSum(
+                            cartProduct.product.price, product?.count ?? 0);
+
+                        return Text(
+                          '\$$cost',
+                          style: const TextStyle(
+                            color: Color.fromRGBO(24, 23, 37, 1.0),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        );
+                      },
                     ),
                   ],
                 ),

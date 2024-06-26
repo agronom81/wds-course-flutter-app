@@ -69,4 +69,10 @@ class ServerApi {
 
     return api.sendGet(path: '/products', data: data);
   }
+
+  Future<HttpServerResponse> orderCreate(
+      {required List<Map<String, int>> products}) async {
+    Map<String, dynamic> data = {'products': products};
+    return api.sendPost(path: '/order/create', data: data);
+  }
 }

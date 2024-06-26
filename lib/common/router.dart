@@ -7,10 +7,12 @@ import '../screens/account.dart';
 import '../screens/app/app.dart';
 import '../screens/app/auth_app.dart';
 import '../screens/cart/cart.dart';
+import '../screens/conditions.dart';
 import '../screens/explore.dart';
 import '../screens/favourite/favourite.dart';
 import '../screens/home/home.dart';
 import '../screens/login/login.dart';
+import '../screens/orders/order_complete.dart';
 import '../screens/privacy_poplicy.dart';
 import '../screens/product.dart';
 import '../screens/products/products.dart';
@@ -45,6 +47,10 @@ final router = GoRouter(
           builder: (context, state) => const TermsService(),
         ),
         GoRoute(
+          path: AppPath.conditions,
+          builder: (context, state) => const Conditions(),
+        ),
+        GoRoute(
           path: AppPath.signup,
           builder: (context, state) => Signup(),
         ),
@@ -57,6 +63,10 @@ final router = GoRouter(
                   final String id = state.pathParameters['productId']!;
                   return Product(id: id);
                 },
+              ),
+              GoRoute(
+                path: AppPath.orderComplete,
+                builder: (context, state) => const OrderComplete(),
               ),
               GoRoute(
                 path: AppPath.products,

@@ -99,3 +99,8 @@ void showAlertDialog(BuildContext context) {
         );
       });
 }
+
+String getProductSum(String price, int count) {
+  double cost = double.parse(price);
+  return (cost * count).toStringAsFixed(2);
+}
