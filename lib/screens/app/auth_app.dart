@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../api/server_api.dart';
 import '../../common/app_settings.dart';
+import '../account/bloc/account_cubit.dart';
 import '../cart/bloc/cart_bloc.dart';
 import '../favourite/bloc/favourite_cubit.dart';
 import '../home/bloc/home_cubit.dart';
@@ -29,6 +30,9 @@ class AuthApp extends StatelessWidget {
         }),
         BlocProvider(create: (context) {
           return ProductsCubit(serverApi: context.read<ServerApi>());
+        }),
+        BlocProvider(create: (context) {
+          return AccountCubit(serverApi: context.read<ServerApi>());
         }),
       ],
       child: InitApp(

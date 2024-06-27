@@ -66,7 +66,7 @@ class OrderComplete extends StatelessWidget {
                 PrimaryButton(
                   title: 'Track order',
                   action: () {
-                    context.go(AppPath.shop);
+                    context.go(AppPath.orders);
                   },
                 ),
                 const SizedBox(height: 8),

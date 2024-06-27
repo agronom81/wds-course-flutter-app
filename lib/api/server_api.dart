@@ -75,4 +75,9 @@ class ServerApi {
     Map<String, dynamic> data = {'products': products};
     return api.sendPost(path: '/order/create', data: data);
   }
+
+  Future<HttpServerResponse> getUser() async {
+    Map<String, dynamic> data = {};
+    return api.sendGet(path: '/user', data: data);
+  }
 }

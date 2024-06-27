@@ -13,10 +13,16 @@ import '../custom_text.dart';
 import '../primary_button.dart';
 import 'checkout_text.dart';
 
-class Checkout extends StatelessWidget {
-  Checkout({super.key});
+class Checkout extends StatefulWidget {
+  const Checkout({super.key});
 
+  @override
+  State<Checkout> createState() => _CheckoutState();
+}
+
+class _CheckoutState extends State<Checkout> {
   final ServerApi api = ServerApi();
+  late bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -89,6 +95,7 @@ class Checkout extends StatelessWidget {
               List<CartProduct> products = state.products.values.toList();
 
               return PrimaryButton(
+                isLoading: isLoading,
                 title: 'Place Order',
                 action: () {
                   _createOrder(context, products);
@@ -111,7 +118,9 @@ class Checkout extends StatelessWidget {
         'count': product.count,
       };
     }).toList();
-
+    setState(() {
+      isLoading = true;
+    });
     api.orderCreate(products: productsMap).then((value) {
       if (value.isSuccess) {
         context.read<CartBloc>().add(
@@ -121,6 +130,9 @@ class Checkout extends StatelessWidget {
       } else {
         _showOrderFailedDialog(context);
       }
+      setState(() {
+        isLoading = false;
+      });
     });
   }
 

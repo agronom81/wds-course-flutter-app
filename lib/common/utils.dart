@@ -76,24 +76,28 @@ void showAlertDialog(BuildContext context) {
       builder: (context) {
         return AlertDialog(
           title: const Text('Product added to cart'),
-          content: const Text('Go to cart'),
           actions: [
-            FilledButton(
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all<Color>(
-                    const Color.fromRGBO(124, 124, 124, 1)),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: const Text('Cancel'),
-            ),
-            FilledButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                context.go(AppPath.cart);
-              },
-              child: const Text('Go to cart'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                FilledButton(
+                  style: ButtonStyle(
+                    backgroundColor: WidgetStateProperty.all<Color>(
+                        const Color.fromRGBO(124, 124, 124, 1)),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancel'),
+                ),
+                FilledButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    context.go(AppPath.cart);
+                  },
+                  child: const Text('Go to cart'),
+                )
+              ],
             )
           ],
         );
@@ -103,4 +107,11 @@ void showAlertDialog(BuildContext context) {
 String getProductSum(String price, int count) {
   double cost = double.parse(price);
   return (cost * count).toStringAsFixed(2);
+}
+
+String getFirstLetter(String input) {
+  if (input.isNotEmpty) {
+    return input[0];
+  }
+  return '';
 }

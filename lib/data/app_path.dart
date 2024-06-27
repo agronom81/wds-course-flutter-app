@@ -13,4 +13,5 @@ class AppPath {
   static String termsService = '/termsService';
   static String conditions = '/conditions';
   static String orderComplete = '/orderComplete';
+  static String orders = '/orders';
 }

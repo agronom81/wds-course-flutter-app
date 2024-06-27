@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 import 'empty.dart';
 
@@ -8,10 +9,14 @@ class PrimaryButton extends StatelessWidget {
     required this.title,
     required this.action,
     this.cartSummary = '',
+    this.isLoading = false,
+    this.isInverse = false,
   });
   final String title;
   final void Function() action;
   final String cartSummary;
+  final bool isLoading;
+  final bool isInverse;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +25,11 @@ class PrimaryButton extends StatelessWidget {
       height: 67,
       child: FilledButton(
         style: ButtonStyle(
+          backgroundColor: isInverse
+              ? WidgetStateProperty.all<Color>(
+                  const Color.fromRGBO(242, 243, 242, 1.0))
+              : WidgetStateProperty.all<Color>(
+                  const Color.fromRGBO(83, 177, 117, 1.0)),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(19.0),
@@ -32,13 +42,24 @@ class PrimaryButton extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               child: Center(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                child: isLoading
+                    ? SizedBox(
+                        height: 40,
+                        width: 40,
+                        child: Lottie.asset(
+                          'animations/loader.json',
+                        ),
+                      )
+                    : Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: isInverse
+                              ? const Color.fromRGBO(83, 177, 117, 1.0)
+                              : Colors.white,
+                        ),
+                      ),
               ),
             ),
             cartSummary != ''
@@ -65,6 +86,16 @@ class PrimaryButton extends StatelessWidget {
                           fontWeight: FontWeight.w600,
                         ),
                       ),
+                    ),
+                  )
+                : const Empty(),
+            isInverse
+                ? const Positioned(
+                    top: 22,
+                    left: 0,
+                    child: Icon(
+                      Icons.logout_outlined,
+                      color: Color.fromRGBO(83, 177, 117, 1.0),
                     ),
                   )
                 : const Empty(),
