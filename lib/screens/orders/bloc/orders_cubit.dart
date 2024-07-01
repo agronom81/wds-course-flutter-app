@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/server_api.dart';
 import '../../../common/utils.dart';
-import '../../../models/user.dart';
+import '../../../models/order.dart';
 import 'orders_state.dart';
 
 class OrdersCubit extends Cubit<OrdersState> {
@@ -12,45 +12,51 @@ class OrdersCubit extends Cubit<OrdersState> {
     required this.serverApi,
   }) : super(OrdersState.init());
 
-  getUser() {
+  getOrders() {
+    if (!state.isHasOrders) {
+      return;
+    }
+
     emit(state.copyWith(
       isLoading: true,
       isSuccess: true,
       message: '',
     ));
-    serverApi.getUser().then((value) {
+    serverApi.orders(page: state.page).then((value) {
       if (value.isSuccess) {
-        emit(state.copyWith(
-            isLoading: false,
-            user: User(
-              id: getValue(value.data, 'id') ?? '',
-              avatar: getValue(value.data, 'avatar') ?? '',
-              user_email: getValue(value.data, 'user_email') ?? '',
-              user_display_name:
-                  getValue(value.data, 'user_display_name') ?? '',
-            )));
+        int page = getValue(value.data, 'page') ?? 1;
+        List<Order> orders =
+            createOrdersList(getValue(value.data, 'orders') ?? []);
+
+        if (state.orders.isNotEmpty) {
+          emit(
+            state.copyWith(
+              isLoading: false,
+              isSuccess: true,
+              page: page + 1,
+              orders: state.orders + orders,
+              isHasOrders: orders.isNotEmpty,
+            ),
+          );
+        } else {
+          emit(
+            state.copyWith(
+              isLoading: false,
+              isSuccess: true,
+              page: page + 1,
+              orders: orders,
+              isHasOrders: orders.isNotEmpty,
+            ),
+          );
+        }
       } else {
         emit(state.copyWith(
           isLoading: false,
           isSuccess: false,
+          page: state.page,
           message: value.message,
         ));
       }
     });
-  }
-
-  clear() async {
-    emit(
-      state.copyWith(
-          isLoading: false,
-          message: '',
-          isSuccess: false,
-          user: User(
-            id: '',
-            avatar: '',
-            user_email: '',
-            user_display_name: '',
-          )),
-    );
   }
 }

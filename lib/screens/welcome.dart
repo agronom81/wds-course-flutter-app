@@ -33,60 +33,58 @@ class _WelcomeState extends State<Welcome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Expanded(
-        child: Container(
-          padding: const EdgeInsets.all(30),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            image: DecorationImage(
-              image: AssetImage('images/welcomeBg.jpg'),
-              fit: BoxFit.cover,
-            ),
+      body: Container(
+        padding: const EdgeInsets.all(30),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          image: DecorationImage(
+            image: AssetImage('images/welcomeBg.jpg'),
+            fit: BoxFit.cover,
           ),
-          child: AnimatedOpacity(
-            opacity: _visible ? 1.0 : 0.0,
-            duration: const Duration(milliseconds: 500),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
+        ),
+        child: AnimatedOpacity(
+          opacity: _visible ? 1.0 : 0.0,
+          duration: const Duration(milliseconds: 500),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 55,
+                child: SvgPicture.asset(
+                  'icons/carrotWhite.svg',
+                  width: 47,
                   height: 55,
-                  child: SvgPicture.asset(
-                    'icons/carrotWhite.svg',
-                    width: 47,
-                    height: 55,
-                  ),
                 ),
-                const SizedBox(
-                  height: 30,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              const Text(
+                'Welcome\nto our store',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 48,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 0,
                 ),
-                const Text(
-                  'Welcome\nto our store',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 48,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    letterSpacing: 0,
-                  ),
+              ),
+              const Text(
+                'Get your groceries in as fast as one hour',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: Color.fromRGBO(252, 252, 252, 0.7),
+                  fontWeight: FontWeight.w500,
                 ),
-                const Text(
-                  'Get your groceries in as fast as one hour',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Color.fromRGBO(252, 252, 252, 0.7),
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                PrimaryButton(title: 'Get Started', action: widget.action),
-                const SizedBox(height: 60),
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              PrimaryButton(title: 'Get Started', action: widget.action),
+              const SizedBox(height: 60),
+            ],
           ),
         ),
       ),

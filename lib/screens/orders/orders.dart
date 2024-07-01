@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../widgets/orders/orders_list.dart';
 import '../../widgets/screen_title.dart';
 
 class Orders extends StatelessWidget {
@@ -11,12 +12,10 @@ class Orders extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: const ScreenTitle(
-          title: 'Favourite',
+          title: 'Orders',
         ),
       ),
-      body: const Center(
-        child: Text('Orders'),
-      ),
+      body: const OrdersList(),
     );
   }
 }

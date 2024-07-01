@@ -76,6 +76,17 @@ class ServerApi {
     return api.sendPost(path: '/order/create', data: data);
   }
 
+  Future<HttpServerResponse> orders({
+    int limit = 10,
+    required int page,
+  }) async {
+    Map<String, dynamic> data = {
+      'limit': limit,
+      'page': page,
+    };
+    return api.sendGet(path: '/orders', data: data);
+  }
+
   Future<HttpServerResponse> getUser() async {
     Map<String, dynamic> data = {};
     return api.sendGet(path: '/user', data: data);

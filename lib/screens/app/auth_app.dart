@@ -7,6 +7,7 @@ import '../account/bloc/account_cubit.dart';
 import '../cart/bloc/cart_bloc.dart';
 import '../favourite/bloc/favourite_cubit.dart';
 import '../home/bloc/home_cubit.dart';
+import '../orders/bloc/orders_cubit.dart';
 import '../products/bloc/products_cubit.dart';
 import 'init_app.dart';
 
@@ -33,6 +34,9 @@ class AuthApp extends StatelessWidget {
         }),
         BlocProvider(create: (context) {
           return AccountCubit(serverApi: context.read<ServerApi>());
+        }),
+        BlocProvider(create: (context) {
+          return OrdersCubit(serverApi: context.read<ServerApi>());
         }),
       ],
       child: InitApp(

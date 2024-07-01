@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wds_first_app/models/order_product_short.dart';
 
 import '../data/app_path.dart';
 import '../models/category.dart';
+import '../models/order.dart';
 import '../models/product.dart';
 import '../models/product_short.dart';
 
@@ -114,4 +116,35 @@ String getFirstLetter(String input) {
     return input[0];
   }
   return '';
+}
+
+List<Order> createOrdersList(List<dynamic> ordersList) {
+  List<Order> orders = [];
+
+  if (ordersList.isNotEmpty) {
+    for (var order in ordersList) {
+      List<OrderProductShort> orderProducts = [];
+
+      for (var product in order['products']) {
+        orderProducts.add(OrderProductShort(
+          id: product['id'] as int,
+          name: product['name'],
+          price: product['price'],
+          short_description: product['shortDescription'],
+          preview_image: product['preview_image'],
+          quantity: product['quantity'] as int,
+        ));
+      }
+
+      orders.add(
+        Order(
+          id: order['id'] as int,
+          total: order['total'],
+          status: order['status'],
+          products: orderProducts,
+        ),
+      );
+    }
+  }
+  return orders;
 }
