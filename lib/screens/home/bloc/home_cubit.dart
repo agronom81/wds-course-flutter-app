@@ -5,10 +5,10 @@ import '../../../api/server_api.dart';
 import '../../../common/utils.dart';
 import 'home_state.dart';
 
-class HomeEvent {}
+abstract class HomeEvent {}
 
 class HomeEventError extends HomeEvent {
-  String message;
+  final String message;
   HomeEventError(this.message);
 }
 
@@ -27,15 +27,22 @@ class HomeCubit extends Cubit<HomeState>
     ));
     serverApi.getHome().then((value) {
       if (value.isSuccess) {
-        emit(state.copyWith(
-          isLoading: false,
-          data: value.data,
-        ));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            data: value.data,
+            isSuccess: true,
+          ),
+        );
       } else {
-        emit(state.copyWith(
-          isLoading: false,
-          message: value.message,
-        ));
+        emit(
+          state.copyWith(
+            isLoading: false,
+            message: value.message,
+            isSuccess: false,
+            data: [],
+          ),
+        );
         emitPresentation(HomeEventError(value.message));
       }
     });

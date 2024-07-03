@@ -59,4 +59,14 @@ class OrdersCubit extends Cubit<OrdersState> {
       }
     });
   }
+
+  clearState() {
+    emit(state.copyWith(
+        page: 1,
+        isHasOrders: true,
+        message: '',
+        isLoading: false,
+        orders: [],
+        isSuccess: false));
+  }
 }

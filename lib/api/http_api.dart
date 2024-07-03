@@ -75,19 +75,21 @@ class HttpApi {
     bool success = code >= 200 && code < 300 && status;
 
     return HttpServerResponse(
-        code: code,
-        message: getValue(data, 'message') ?? 'Success',
-        data: getValue(data, 'data'),
-        isSuccess: success);
+      code: code,
+      message: getValue(data, 'message') ?? 'Success',
+      data: getValue(data, 'data'),
+      isSuccess: success,
+    );
   }
 
   _mapError(DioException e) {
     dynamic data = e.response?.data ?? '';
     String message = e.message ?? 'Error from server';
     return HttpServerResponse(
-        code: e.response?.statusCode ?? -1,
-        message: getValue(data, 'message') ?? message,
-        data: e.response?.data ?? '',
-        isSuccess: false);
+      code: e.response?.statusCode ?? -1,
+      message: getValue(data, 'message') ?? message,
+      data: e.response?.data ?? '',
+      isSuccess: false,
+    );
   }
 }

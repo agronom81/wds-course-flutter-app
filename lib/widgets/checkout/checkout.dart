@@ -9,6 +9,7 @@ import '../../models/cart_product.dart';
 import '../../screens/cart/bloc/cart_bloc.dart';
 import '../../screens/cart/bloc/cart_event.dart';
 import '../../screens/cart/bloc/cart_state.dart';
+import '../../screens/orders/bloc/orders_cubit.dart';
 import '../custom_text.dart';
 import '../primary_button.dart';
 import 'checkout_text.dart';
@@ -126,6 +127,7 @@ class _CheckoutState extends State<Checkout> {
         context.read<CartBloc>().add(
               CartClearEvent(),
             );
+        context.read<OrdersCubit>().clearState();
         context.go(AppPath.orderComplete);
       } else {
         _showOrderFailedDialog(context);

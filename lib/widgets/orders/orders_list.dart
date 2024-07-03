@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wds_first_app/widgets/orders/order_card.dart';
 
 import '../../screens/orders/bloc/orders_cubit.dart';
 import '../../screens/orders/bloc/orders_state.dart';
@@ -28,23 +29,35 @@ class _OrdersListState extends State<OrdersList> {
   }
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
-        if (state.isLoading) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (!state.isSuccess) {
+        if (!state.isSuccess) {
           return Center(child: Text(state.message));
+        } else if (state.isLoading && state.page == 1) {
+          return const Center(child: CircularProgressIndicator());
         } else {
-          return ListView.builder(
-            controller: _scrollController,
-            itemCount: state.orders.length,
-            itemBuilder: (context, index) {
-              final item = state.orders[index];
-              return ListTile(
-                title: Text(item.id.toString()),
-              );
-            },
+          return Padding(
+            padding: const EdgeInsets.only(left: 25, right: 25),
+            child: ListView.builder(
+              controller: _scrollController,
+              itemCount: state.orders.length,
+              itemBuilder: (context, index) {
+                final item = state.orders[index];
+                return OrderCard(
+                  order: item,
+                  isLoading: index + 1 == state.orders.length
+                      ? state.isLoading
+                      : false,
+                );
+              },
+            ),
           );
         }
       },
