@@ -54,6 +54,19 @@ class HttpApi {
     }
   }
 
+  Future<HttpServerResponse> sendPostFormData(
+      {required String path,
+      required FormData data,
+      Map<String, dynamic>? header}) async {
+    try {
+      var response =
+          await dio.post(path, data: data, options: Options(headers: header));
+      return _mapSuccess(response);
+    } on DioException catch (e) {
+      return _mapError(e);
+    }
+  }
+
   Future<HttpServerResponse> sendGet(
       {required String path,
       required Map<String, dynamic> data,

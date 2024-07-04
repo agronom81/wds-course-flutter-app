@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 import 'http_api.dart';
 import 'http_server_response.dart';
 
@@ -90,5 +92,12 @@ class ServerApi {
   Future<HttpServerResponse> getUser() async {
     Map<String, dynamic> data = {};
     return api.sendGet(path: '/user', data: data);
+  }
+
+  Future<HttpServerResponse> updateAvatar(FormData formData) async {
+    return api.sendPostFormData(
+        path: '/user/avatar',
+        data: formData,
+        header: {'Content-Type': 'multipart/form-data'});
   }
 }

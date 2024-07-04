@@ -39,6 +39,32 @@ class AccountCubit extends Cubit<AccountState> {
     });
   }
 
+  Future updateAvatar(file) async {
+    emit(state.copyWith(
+      isLoading: true,
+      isSuccess: true,
+      message: '',
+    ));
+    serverApi.updateAvatar(file).then((value) {
+      if (value.isSuccess) {
+        emit(state.copyWith(
+            isLoading: false,
+            user: User(
+              id: state.user.id,
+              avatar: getValue(value.data, 'avatar') ?? '',
+              user_email: state.user.user_email,
+              user_display_name: state.user.user_display_name,
+            )));
+      } else {
+        emit(state.copyWith(
+          isLoading: false,
+          isSuccess: false,
+          message: value.message,
+        ));
+      }
+    });
+  }
+
   clear() async {
     emit(
       state.copyWith(

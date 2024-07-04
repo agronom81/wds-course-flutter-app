@@ -42,15 +42,13 @@ class _AccountState extends State<Account> {
                 : Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Column(
+                      const Column(
                         children: [
-                          UserInfo(
-                            user: state.user,
-                          ),
-                          const SizedBox(height: 30),
-                          const Divider(),
-                          const OrdersTile(),
-                          const Divider(),
+                          UserInfo(),
+                          SizedBox(height: 30),
+                          Divider(),
+                          OrdersTile(),
+                          Divider(),
                         ],
                       ),
                       Padding(
