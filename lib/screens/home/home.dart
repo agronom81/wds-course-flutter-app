@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../common/app_settings.dart';
 import '../../common/utils.dart';
 import '../../data/app_constants.dart';
 import '../../data/app_path.dart';
 import '../../models/product_extra.dart';
+import '../../widgets/custom_text.dart';
 import '../../widgets/empty.dart';
 import '../../widgets/home/home_categories.dart';
 import '../../widgets/home/home_products.dart';
@@ -65,7 +67,20 @@ class _HomeContentState extends State<HomeContent> {
     }
 
     if (!homeState.isLoading && !homeState.isSuccess) {
-      return const Empty();
+      return Center(
+        child: Column(
+          children: [
+            Lottie.asset(
+              'animations/error.json',
+              repeat: false,
+            ),
+            const CustomText(
+              text: 'Something went wrong!',
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      );
     }
 
     return BlocPresentationListener<HomeCubit, HomeEvent>(

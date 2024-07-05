@@ -19,7 +19,7 @@ class UserInfo extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 25),
           child: Row(
             children: [
-              Avatar(),
+              const Avatar(),
               const SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
