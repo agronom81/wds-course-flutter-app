@@ -126,7 +126,7 @@ class _TabsState extends State<Tabs> {
     showModalBottomSheet<void>(
       context: context,
       builder: (BuildContext context) {
-        return Checkout();
+        return const Checkout();
       },
     );
   }
