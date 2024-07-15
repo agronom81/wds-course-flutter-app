@@ -20,7 +20,6 @@ class Tabs extends StatefulWidget {
 }
 
 class _TabsState extends State<Tabs> {
-  String page = AppPath.shop;
   final List<Map<String, dynamic>> _icons = [
     {'icon': 'icons/shop.svg', 'label': 'Shop', 'route': AppPath.shop},
     {'icon': 'icons/explore.svg', 'label': 'Explore', 'route': AppPath.explore},
@@ -36,7 +35,7 @@ class _TabsState extends State<Tabs> {
   final Color _activeColor = const Color.fromRGBO(83, 177, 117, 1);
 
   _getActiveColor(route) {
-    if (page == route) {
+    if (route == _getPageFromRouter()) {
       return _activeColor;
     }
 
@@ -44,10 +43,11 @@ class _TabsState extends State<Tabs> {
   }
 
   void _goTo(name) {
-    setState(() {
-      page = '$name';
-    });
     context.go('$name');
+  }
+
+  String _getPageFromRouter() {
+    return GoRouter.of(context).routeInformationProvider.value.uri.toString();
   }
 
   @override

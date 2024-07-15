@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'api/server_api.dart';
 import 'common/app_settings.dart';
-import 'common/router.dart';
+import 'router/router.dart';
 import 'common/theme.dart';
 
 void main() {

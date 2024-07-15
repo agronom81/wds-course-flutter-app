@@ -19,8 +19,8 @@ import '../screens/product.dart';
 import '../screens/products/products.dart';
 import '../screens/signup.dart';
 import '../screens/terms_service.dart';
-import 'app_settings.dart';
-import 'tabs.dart';
+import '../common/app_settings.dart';
+import '../common/tabs.dart';
 
 final router = GoRouter(
   initialLocation: AppPath.login,
