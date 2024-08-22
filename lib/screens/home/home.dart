@@ -5,20 +5,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../common/app_settings.dart';
-import '../../common/utils.dart';
-import '../../data/app_constants.dart';
-import '../../data/app_path.dart';
-import '../../models/product_extra.dart';
-import '../../widgets/custom_text.dart';
-import '../../widgets/empty.dart';
-import '../../widgets/home/home_categories.dart';
-import '../../widgets/home/home_products.dart';
-import '../../widgets/home/home_slider.dart';
-import '../../widgets/loader.dart';
-import '../../widgets/search_field.dart';
+import '../../core/app_settings.dart';
+import '../../core/core.dart';
+import '../../core/utils.dart';
+import '../../core/app_constants.dart';
+import '../../core/app_path.dart';
+import '../../ui/ui.dart';
 import 'bloc/home_cubit.dart';
 import 'bloc/home_state.dart';
+import 'widgets/widgets.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});

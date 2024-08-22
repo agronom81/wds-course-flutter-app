@@ -1,4 +1,4 @@
-import '../../../models/user.dart';
+import '../../../core/core.dart';
 
 class AccountState {
   late User user;

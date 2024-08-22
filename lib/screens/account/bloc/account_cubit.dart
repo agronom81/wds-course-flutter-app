@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/server_api.dart';
-import '../../../common/utils.dart';
-import '../../../models/user.dart';
+import '../../../core/core.dart';
 import 'account_state.dart';
 
 class AccountCubit extends Cubit<AccountState> {

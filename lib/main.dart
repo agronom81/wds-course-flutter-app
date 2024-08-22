@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'api/server_api.dart';
-import 'common/app_settings.dart';
+import 'core/core.dart';
 import 'router/router.dart';
-import 'common/theme.dart';
+import 'ui/theme/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         RepositoryProvider(create: (_) => AppSettings()),
       ],
       child: MaterialApp.router(
-        title: 'Flutter Demo',
+        title: 'Flutter Demo Shop',
         routerConfig: router,
         theme: theme,
       ),

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 
-import '../common/app_settings.dart';
-import '../common/utils.dart';
+import '../core/core.dart';
 import 'http_server_response.dart';
 
 class HttpApi {

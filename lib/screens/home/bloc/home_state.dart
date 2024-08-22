@@ -1,4 +1,5 @@
-import 'package:wds_first_app/models/product_short.dart';
+
+import '../../../core/core.dart';
 
 class HomeState {
   String message;

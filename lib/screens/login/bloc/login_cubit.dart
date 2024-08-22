@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/server_api.dart';
-import '../../../common/app_settings.dart';
-import '../../../common/utils.dart';
+import '../../../core/app_settings.dart';
+import '../../../core/utils.dart';
 
 class LoginEvent {}
 

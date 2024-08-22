@@ -1,4 +1,5 @@
-import '../../../models/favourite_product.dart';
+
+import '../../../core/core.dart';
 
 class FavouriteState {
   Map<String, FavouriteProduct> products;

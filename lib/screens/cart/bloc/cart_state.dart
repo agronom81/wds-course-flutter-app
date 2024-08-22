@@ -1,4 +1,5 @@
-import '../../../models/cart_product.dart';
+
+import '../../../core/core.dart';
 
 class CartState {
   late Map<String, CartProduct> products;

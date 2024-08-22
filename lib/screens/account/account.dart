@@ -2,14 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../data/app_path.dart';
-import '../../widgets/account/orders_tile.dart';
-import '../../widgets/account/user_info.dart';
-import '../../widgets/loader.dart';
-import '../../widgets/primary_button.dart';
+import '../../core/core.dart';
+import '../../ui/ui.dart';
 import '../login/bloc/login_cubit.dart';
 import 'bloc/account_cubit.dart';
 import 'bloc/account_state.dart';
+import 'widgets/widgets.dart';
 
 class Account extends StatefulWidget {
   const Account({super.key});

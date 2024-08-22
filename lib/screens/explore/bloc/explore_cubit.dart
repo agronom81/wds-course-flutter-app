@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../api/server_api.dart';
-import '../../../../common/utils.dart';
+import '../../../core/utils.dart';
 import 'explore_state.dart';
 
 class ExploreCubit extends Cubit<ExploreState> {

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../widgets/favourite/favourite_products.dart';
-import '../../widgets/screen_title.dart';
+import '../../ui/ui.dart';
 import 'bloc/favourite_cubit.dart';
+import 'widgets/widgets.dart';
 
 class Favourite extends StatelessWidget {
   const Favourite({super.key});

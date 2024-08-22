@@ -2,7 +2,7 @@ import 'package:bloc_presentation/bloc_presentation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/server_api.dart';
-import '../../../common/utils.dart';
+import '../../../core/utils.dart';
 import 'home_state.dart';
 
 abstract class HomeEvent {}

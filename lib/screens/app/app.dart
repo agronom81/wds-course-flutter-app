@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../api/server_api.dart';
-import '../../common/app_settings.dart';
-import '../../data/app_path.dart';
+import '../../core/app_settings.dart';
+import '../../core/app_path.dart';
 import '../login/bloc/login_cubit.dart';
-import '../welcome.dart';
+import '../welcome/welcome.dart';
 
 class App extends StatefulWidget {
   const App({

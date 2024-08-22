@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../api/server_api.dart';
-import '../../models/product_short.dart';
-import '../../widgets/explore/explore_categories.dart';
-import '../../widgets/explore/search.dart';
-import '../../widgets/loader.dart';
-import '../../widgets/products/products_list.dart';
-import '../../widgets/screen_title.dart';
+import '../../core/core.dart';
+import '../../ui/ui.dart';
 import '../cart/bloc/cart_bloc.dart';
 import '../cart/bloc/cart_event.dart';
 import '../home/bloc/home_cubit.dart';
 import '../home/bloc/home_state.dart';
 import 'bloc/explore_cubit.dart';
 import 'bloc/explore_state.dart';
+import 'widgets/widgets.dart';
 
 class Explore extends StatefulWidget {
   const Explore({super.key});

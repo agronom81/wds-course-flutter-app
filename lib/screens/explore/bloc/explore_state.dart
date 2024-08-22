@@ -1,4 +1,4 @@
-import '../../../models/category.dart';
+import '../../../core/core.dart';
 
 class ExploreState {
   late List<Category> categories;

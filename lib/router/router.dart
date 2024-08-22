@@ -1,26 +1,26 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../data/app_path.dart';
-import '../models/product_extra.dart';
+import '../core/app_path.dart';
+import '../core/app_settings.dart';
+import '../core/models/product_extra.dart';
 import '../screens/account/account.dart';
 import '../screens/app/app.dart';
 import '../screens/app/auth_app.dart';
 import '../screens/cart/cart.dart';
-import '../screens/conditions.dart';
+import '../screens/conditions/conditions.dart';
 import '../screens/explore/explore.dart';
 import '../screens/favourite/favourite.dart';
 import '../screens/home/home.dart';
 import '../screens/login/login.dart';
 import '../screens/orders/order_complete.dart';
 import '../screens/orders/orders.dart';
-import '../screens/privacy_poplicy.dart';
-import '../screens/product.dart';
+import '../screens/privacy_policy/privacy_poplicy.dart';
+import '../screens/product/product.dart';
 import '../screens/products/products.dart';
-import '../screens/signup.dart';
-import '../screens/terms_service.dart';
-import '../common/app_settings.dart';
-import '../common/tabs.dart';
+import '../screens/signup/signup.dart';
+import '../screens/terms_service/terms_service.dart';
+import '../tabs/tabs.dart';
 
 final router = GoRouter(
   initialLocation: AppPath.login,

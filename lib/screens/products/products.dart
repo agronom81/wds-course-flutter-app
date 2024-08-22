@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../common/utils.dart';
-import '../../data/app_constants.dart';
-import '../../models/product_extra.dart';
-import '../../models/product_short.dart';
-import '../../widgets/loader.dart';
-import '../../widgets/products/products_list.dart';
-import '../../widgets/screen_title.dart';
+import '../../core/core.dart';
+import '../../ui/ui.dart';
 import '../cart/bloc/cart_bloc.dart';
 import '../cart/bloc/cart_event.dart';
 import 'bloc/products_cubit.dart';

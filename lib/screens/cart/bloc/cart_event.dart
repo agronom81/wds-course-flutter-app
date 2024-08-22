@@ -1,4 +1,5 @@
-import '../../../models/product_short.dart';
+
+import '../../../core/core.dart';
 
 class CartEvent {}
 

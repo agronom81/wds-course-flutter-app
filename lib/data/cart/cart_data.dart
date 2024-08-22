@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/cart_product.dart';
-import '../../models/product_short.dart';
+import '../../core/core.dart';
 
 class CartData extends InheritedWidget {
   final List<CartProduct> products;

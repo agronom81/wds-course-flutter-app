@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../data/app_path.dart';
-import '../../widgets/orders/orders_list.dart';
-import '../../widgets/screen_title.dart';
+import '../../core/core.dart';
+import '../../ui/ui.dart';
+import 'widgets/orders_list.dart';
 
 class Orders extends StatelessWidget {
   const Orders({

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 
-import '../../data/app_path.dart';
-import '../../widgets/custom_text.dart';
-import '../../widgets/primary_button.dart';
+import '../../core/core.dart';
+import '../../ui/ui.dart';
 
 class OrderComplete extends StatelessWidget {
   const OrderComplete({super.key});

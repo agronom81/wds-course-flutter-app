@@ -1,4 +1,4 @@
-import '../../../models/order.dart';
+import '../../../core/core.dart';
 
 class OrdersState {
   int page;

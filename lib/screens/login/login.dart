@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../common/app_settings.dart';
-import '../../widgets/auth.dart';
+import '../../core/app_settings.dart';
+import 'widgets/auth.dart';
 
 class Login extends StatelessWidget {
   Login({super.key});

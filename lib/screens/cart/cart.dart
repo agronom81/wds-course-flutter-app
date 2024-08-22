@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wds_first_app/widgets/cart/cart_products.dart';
 
-import '../../models/cart_product.dart';
-import '../../widgets/screen_title.dart';
+import '../../core/core.dart';
+import '../../ui/ui.dart';
 import 'bloc/cart_bloc.dart';
 import 'bloc/cart_state.dart';
+import 'widgets/widgets.dart';
 
 class Cart extends StatelessWidget {
   const Cart({super.key});

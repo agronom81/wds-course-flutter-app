@@ -1,8 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/server_api.dart';
-import '../../../common/utils.dart';
-import '../../../models/order.dart';
+import '../../../core/core.dart';
 import 'orders_state.dart';
 
 class OrdersCubit extends Cubit<OrdersState> {

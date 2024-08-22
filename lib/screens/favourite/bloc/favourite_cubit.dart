@@ -1,9 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../common/app_settings.dart';
-import '../../../models/favourite_product.dart';
-import '../../../models/product.dart';
-import '../../../models/product_short.dart';
+import '../../../core/core.dart';
 import 'favourite_state.dart';
 
 class FavouriteCubit extends Cubit<FavouriteState> {

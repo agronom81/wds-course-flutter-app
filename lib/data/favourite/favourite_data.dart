@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../models/favourite_product.dart';
-import '../../models/product.dart';
+import '../../core/core.dart';
 
 class FavouriteData extends InheritedWidget {
   final Map<String, FavouriteProduct> products;
