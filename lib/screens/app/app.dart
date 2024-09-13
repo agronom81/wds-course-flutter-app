@@ -62,9 +62,9 @@ class _AppState extends State<App> {
   Future<void> _checkToken() async {
     String? token = await widget.settings.getToken();
 
-    if (token != null) {
+    if (token == null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        context.go(AppPath.shop);
+        context.go(AppPath.login);
       });
     }
   }

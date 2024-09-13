@@ -27,7 +27,7 @@ class _CheckoutState extends State<Checkout> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 600,
+      height: MediaQuery.of(context).size.height * 0.6,
       padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 25),
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -37,7 +37,6 @@ class _CheckoutState extends State<Checkout> {
         ),
       ),
       child: Column(
-        // mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,27 +81,44 @@ class _CheckoutState extends State<Checkout> {
               ),
             ],
           ),
-          const SizedBox(height: 160),
-          const Divider(
-            color: Color.fromRGBO(226, 226, 226, 0.7),
-            thickness: 1,
-          ),
-          const SizedBox(height: 20),
-          const CheckoutText(),
-          const SizedBox(height: 16),
-          BlocBuilder<CartBloc, CartState>(
-            builder: (context, state) {
-              List<CartProduct> products = state.products.values.toList();
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Column(
+                  children: [
+                    SizedBox(height: 16),
+                    Divider(
+                      color: Color.fromRGBO(226, 226, 226, 0.7),
+                      thickness: 1,
+                    ),
+                    SizedBox(height: 16),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const CheckoutText(),
+                    const SizedBox(height: 16),
+                    BlocBuilder<CartBloc, CartState>(
+                      builder: (context, state) {
+                        List<CartProduct> products =
+                            state.products.values.toList();
 
-              return PrimaryButton(
-                isLoading: isLoading,
-                title: 'Place Order',
-                action: () {
-                  _createOrder(context, products);
-                },
-              );
-            },
-          ),
+                        return PrimaryButton(
+                          isLoading: isLoading,
+                          title: 'Place Order',
+                          action: () {
+                            _createOrder(context, products);
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -150,51 +166,72 @@ class _CheckoutState extends State<Checkout> {
             borderRadius: BorderRadius.circular(19),
           ),
           child: Padding(
-            padding: const EdgeInsets.all(25),
+            padding: const EdgeInsets.all(20),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
+                Column(
                   children: [
-                    IconButton(
-                      icon: const Icon(Icons.close),
-                      color: const Color.fromRGBO(24, 23, 37, 1),
-                      onPressed: () => Navigator.of(context).pop(),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          color: const Color.fromRGBO(24, 23, 37, 1),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      ],
                     ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.5,
+                      child: Lottie.asset(
+                        'animations/orderError.json',
+                        repeat: false,
+                      ),
+                    ),
+                    const SizedBox(height: 32),
                   ],
                 ),
-                const SizedBox(height: 18),
-                Lottie.asset(
-                  'animations/orderError.json',
-                  repeat: false,
+                const Column(
+                  children: [
+                    // SizedBox(height: 50),
+                    CustomText(
+                      textAlign: TextAlign.center,
+                      text: 'Oops! Order Failed',
+                      fontSize: 28,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    SizedBox(height: 16),
+                    CustomText(
+                      textAlign: TextAlign.center,
+                      text: 'Something went terribly wrong.',
+                      color: Color.fromRGBO(124, 124, 124, 1),
+                    ),
+                    SizedBox(height: 60),
+                  ],
                 ),
-                // Replace with your Lottie asset or image
-                const SizedBox(height: 50),
-                const CustomText(
-                  text: 'Oops! Order Failed',
-                  fontSize: 28,
-                  fontWeight: FontWeight.w600,
-                ),
-                const SizedBox(height: 20),
-                const CustomText(
-                  text: 'Something went terribly wrong.',
-                  color: Color.fromRGBO(124, 124, 124, 1),
-                ),
-                const SizedBox(height: 60),
-                PrimaryButton(
-                  title: 'Please try again',
-                  action: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-                const SizedBox(height: 8),
-                TextButton(
-                  onPressed: () => context.go(AppPath.shop),
-                  child: const CustomText(
-                    text: 'Back to home',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
+                Column(
+                  children: [
+                    PrimaryButton(
+                      title: 'Please try again',
+                      action: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    const SizedBox(height: 8),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        context.go(AppPath.shop);
+                      },
+                      child: const CustomText(
+                        text: 'Back to home',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

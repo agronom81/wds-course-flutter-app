@@ -23,7 +23,7 @@ import '../screens/terms_service/terms_service.dart';
 import '../tabs/tabs.dart';
 
 final router = GoRouter(
-  initialLocation: AppPath.login,
+  initialLocation: AppPath.shop,
   routes: [
     ShellRoute(
       builder: (context, state, child) => App(

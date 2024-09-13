@@ -23,41 +23,45 @@ class OrderComplete extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              children: [
-                const SizedBox(
-                  height: 100,
-                ),
-                SizedBox(
-                  width: 270,
-                  child: Lottie.asset(
-                    'animations/lottieSuccess.json',
-                    repeat: false,
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Lottie.asset(
+                          'animations/lottieSuccess.json',
+                          repeat: false,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            const Column(
-              children: [
-                SizedBox(
-                  height: 8,
-                ),
-                CustomText(
-                  text: 'Your order has been\n accepted',
-                  fontSize: 28,
-                  fontWeight: FontWeight.w600,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                CustomText(
-                  text:
-                      'Your items has been placed and is on\nit’s way to being processed',
-                  color: Color.fromRGBO(124, 124, 124, 1),
-                  textAlign: TextAlign.center,
-                ),
-              ],
+                  const Column(
+                    children: [
+                      SizedBox(
+                        height: 8,
+                      ),
+                      CustomText(
+                        text: 'Your order has been\n accepted',
+                        fontSize: 28,
+                        fontWeight: FontWeight.w600,
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      CustomText(
+                        text:
+                            'Your items has been placed and is on\nit’s way to being processed',
+                        color: Color.fromRGBO(124, 124, 124, 1),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             Column(
               children: [

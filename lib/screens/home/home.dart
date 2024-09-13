@@ -70,7 +70,7 @@ class _HomeContentState extends State<HomeContent> {
               repeat: false,
             ),
             const CustomText(
-              text: 'Something went wrong!',
+              text: 'Log in to app!',
               textAlign: TextAlign.center,
             ),
           ],
