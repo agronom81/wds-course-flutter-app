@@ -66,6 +66,10 @@ class _AppState extends State<App> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         context.go(AppPath.login);
       });
+    } else {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        context.go(AppPath.shop);
+      });
     }
   }
 

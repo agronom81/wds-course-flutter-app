@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:wds_first_app/screens/app/preloader_app.dart';
 
 import '../core/app_path.dart';
 import '../core/app_settings.dart';
@@ -23,7 +24,7 @@ import '../screens/terms_service/terms_service.dart';
 import '../tabs/tabs.dart';
 
 final router = GoRouter(
-  initialLocation: AppPath.shop,
+  initialLocation: AppPath.preloader,
   routes: [
     ShellRoute(
       builder: (context, state, child) => App(
@@ -31,6 +32,10 @@ final router = GoRouter(
         child: child,
       ),
       routes: [
+        GoRoute(
+          path: AppPath.preloader,
+          builder: (context, state) => const PreloaderApp(),
+        ),
         GoRoute(
           path: AppPath.login,
           builder: (context, state) => Login(),

@@ -1,4 +1,5 @@
 class AppPath {
+  static String preloader = '/preloader';
   static String shop = '/shop';
   static String explore = '/explore';
   static String cart = '/cart';
